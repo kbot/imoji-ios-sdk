@@ -15,9 +15,9 @@ Pod::Spec.new do |s|
   s.ios.vendored_frameworks  = 'ImojiSDK.framework'
   s.ios.frameworks = ["UIKit"]
 
-  #s.dependency "AFNetworking"
-  #s.dependency "Bolts"
-  #s.dependency "CocoaLumberjack"
+  s.dependency "AFNetworking"
+  s.dependency "Bolts"
+  s.dependency "CocoaLumberjack"
 
   #s.dependency "Bolts"
   #s.dependency 'iOS-WebP', :git => 'https://github.com/imojiengineering/iOS-WebP'

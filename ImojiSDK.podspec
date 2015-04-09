@@ -18,5 +18,6 @@ Pod::Spec.new do |s|
   s.dependency "AFNetworking"
   s.dependency "Bolts"
   s.dependency "CocoaLumberjack"
+  s.dependency "iOS-WebP", "0.4"
   
 end

@@ -1,1 +1,2 @@
-# imoji-ios-sdk
+#Imoji SDK
+

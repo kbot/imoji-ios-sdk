@@ -18,9 +18,5 @@ Pod::Spec.new do |s|
   s.dependency "AFNetworking"
   s.dependency "Bolts"
   s.dependency "CocoaLumberjack"
-
-  #s.dependency "Bolts"
-  #s.dependency 'iOS-WebP', :git => 'https://github.com/imojiengineering/iOS-WebP'
-  #s.dependency "CocoaLumberjack"
-
+  
 end

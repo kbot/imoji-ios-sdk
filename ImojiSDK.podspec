@@ -9,15 +9,13 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.source = { git: 'https://github.com/imojiengineering/imoji-ios-sdk.git', tag: "#{s.version}" }
   s.platform = :ios, '7.0'
-  s.ios.platform             = :ios, '7.0'
-  s.ios.preserve_paths       = 'ImojiSDK.framework'
-  s.ios.public_header_files  = 'ImojiSDK.framework/Versions/A/Headers/*.h'
-  s.ios.vendored_frameworks  = 'ImojiSDK.framework'
-  s.ios.frameworks = ["UIKit"]
+  s.preserve_paths = 'ImojiSDK.framework'
+  s.public_header_files = 'ImojiSDK.framework/Versions/A/Headers/*.h'
+  s.vendored_frameworks = 'ImojiSDK.framework'
 
   s.dependency "AFNetworking"
   s.dependency "Bolts"
   s.dependency "CocoaLumberjack"
-  s.dependency "iOS-WebP", "0.4"
+  s.dependency "iOS-WebP", "~> 0.5"
   
 end

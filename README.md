@@ -11,10 +11,9 @@ Add the Imoji repo to your Podfile
 source 'https://github.com/imojiengineering/imoji-pods-specs.git'
 ```
 
-Then add the ImojiSDK and webp entries to your Podfile
+Then add the ImojiSDK entry to your Podfile
 
 ```
-pod 'iOS-WebP', :git => 'https://github.com/imojiengineering/iOS-WebP'
 pod 'ImojiSDK'
 ```
 

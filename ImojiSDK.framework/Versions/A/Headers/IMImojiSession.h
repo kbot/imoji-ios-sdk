@@ -11,7 +11,7 @@
 extern NSString *IMSDKSessionErrorDomain;
 
 typedef NS_ENUM(NSUInteger, IMSDKSessionErrorCode) {
-    IMSDKSessionErrorCodeAPIKeyNotSpecified,
+    IMSDKSessionErrorCodeInvalidCredentials,
     IMSDKSessionErrorCodeServerError,
     IMSDKSessionErrorCodeImojiDoesNotExist,
     IMSDKSessionErrorCodeInvalidArgument,
@@ -36,13 +36,13 @@ typedef void (^IMImojiSessionImojiCategoriesResponseCallback)(NSArray *imojiCate
 /**
 @abstract Creates a imoji session object with a default temporary file system storage policy.
 */
-+ (instancetype)imojiManager;
++ (instancetype)imojiSession;
 
 /**
 @abstract Creates a imoji session object.
 @param storagePolicy The storage policy to use for persisting imojis.
 */
-+ (instancetype)imojiManagerWithStoragePolicy:(IMImojiSessionStoragePolicy *)storagePolicy;
++ (instancetype)imojiSessionWithStoragePolicy:(IMImojiSessionStoragePolicy *)storagePolicy;
 
 @end
 

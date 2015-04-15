@@ -12,3 +12,15 @@
 #import "IMImojiCategoryObject.h"
 #import "IMImojiSessionStoragePolicy.h"
 #import "IMImojiSession.h"
+
+@interface ImojiSDK : NSObject
+
+@property(readonly, nonatomic, copy) NSString *sdkVersion;
+@property(readonly, nonatomic, copy) NSString *clientSecret;
+@property(readonly, nonatomic, copy) NSString *clientId;
+
++ (ImojiSDK *)sharedInstance;
+
+- (void)setClientId:(NSString *)clientId clientSecret:(NSString *)clientSecret;
+
+@end

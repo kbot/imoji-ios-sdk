@@ -25,10 +25,16 @@ pod install
 
 ###Authentication
 
-You'll need to provide your API key in your Info.plist before you start integrating. 
+Initiate the client id and secret for ImojiSDK. You can add this to the application:didFinishLaunchingWithOptions: method of AppDelegate
 
 ```
-IMOJI_API_KEY=<UUID-HASH>
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // setup imoji sdk
+    [[ImojiSDK sharedInstance] setClientId:@"client-id"
+                              clientSecret:@"client-secret"];
+
+    return YES;
+}
 ```
 
 

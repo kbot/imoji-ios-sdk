@@ -25,13 +25,13 @@ pod install
 
 ###Authentication
 
-Initiate the client id and secret for ImojiSDK. You can add this to the application:didFinishLaunchingWithOptions: method of AppDelegate
+Initiate the client id and api token for ImojiSDK. You can add this to the application:didFinishLaunchingWithOptions: method of AppDelegate
 
 ```
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // setup imoji sdk
-    [[ImojiSDK sharedInstance] setClientId:@"client-id"
-                              clientSecret:@"client-secret"];
+    [[ImojiSDK sharedInstance] setClientId:[[NSUUID alloc] initWithUUIDString:@"client-id"]
+                                  apiToken:@"api-token"];
 
     return YES;
 }

@@ -5,12 +5,17 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+*  @abstract Configuration object used to determine how to store assets.
+*/
 @interface IMImojiSessionStoragePolicy : NSObject
 
-@property(nonatomic, strong, readonly) NSURL *localPath;
+@property(nonatomic, strong, readonly) NSURL *path;
 
+/**
+*  @abstract Generates a storage policy that writes assets to a temporary directory. Contents stored within the
+*  temporary directory are removed at unspecified times by the operating system.
+*/
 + (instancetype)temporaryDiskStoragePolicy;
-
-+ (instancetype)diskStoragePolicyWithPath:(NSURL *)localPath;
 
 @end

@@ -10,6 +10,7 @@
 
 #import "IMImojiObject.h"
 #import "IMImojiCategoryObject.h"
+#import "IMImojiObjectRenderingOptions.h"
 #import "IMImojiSessionStoragePolicy.h"
 #import "IMImojiSession.h"
 

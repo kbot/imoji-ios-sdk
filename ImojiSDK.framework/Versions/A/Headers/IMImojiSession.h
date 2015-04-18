@@ -4,7 +4,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import <CoreGraphics/CoreGraphics.h>
+#import "IMImojiObjectRenderingOptions.h"
 
 @class IMImojiObject, IMImojiSessionStoragePolicy;
 
@@ -36,6 +38,9 @@ typedef NS_ENUM(NSUInteger, IMImojiSessionErrorCode) {
     IMImojiSessionErrorCodeInvalidImage
 };
 
+/**
+* DEPRECATED: See IMImojiObjectRenderingOptions
+*/
 typedef NS_ENUM(NSUInteger, IMImojiObjectRenderQuality) {
     /**
     * @abstract When used, a compressed version of the Imoji is downloaded and rendered. This setting is useful when
@@ -48,7 +53,7 @@ typedef NS_ENUM(NSUInteger, IMImojiObjectRenderQuality) {
     * the consumer wishes to export the imoji to another application or simply display a large version of it.
     */
     IMImojiObjectRenderQualityFullResolution
-};
+} __deprecated;
 
 typedef void (^IMImojiSessionSearchResponseCallback)(NSNumber *resultCount, NSError *error);
 
@@ -127,6 +132,8 @@ typedef void (^IMImojiSessionImojiRenderResponseCallback)(UIImage *image, NSErro
 @interface IMImojiSession (ImojiDisplaying)
 
 /**
+* DEPRECATED: Use renderImoji:options:callback instead
+*
 * @abstract Renders an imoji object into a image with a white border.
 * The border widths and shadow size are scaled proportionally to the size of the image.
 * @param imoji The imoji to render.
@@ -136,84 +143,17 @@ typedef void (^IMImojiSessionImojiRenderResponseCallback)(UIImage *image, NSErro
 */
 - (NSOperation *)renderImoji:(IMImojiObject *)imoji
                      quality:(IMImojiObjectRenderQuality)quality
-                    callback:(IMImojiSessionImojiRenderResponseCallback)callback;
+                    callback:(IMImojiSessionImojiRenderResponseCallback)callback __deprecated;
 
 /**
-* @abstract Renders an imoji object into a image with a white border scaled to fit the specified target size.
-* If the target size is larger than the imoji image itself, it will be scaled up to adjust to the size.
-* The border widths and shadow size are scaled proportionally to targetSize or the size of the imoji image itself, whichever is smaller
+* @abstract Renders an imoji object into a image with a specified border and shadow. The imoji image is scaled to fit the specified target size.
 * @param imoji The imoji to render.
-* @param quality The desired quality of the image to load.
-* @param targetSize The desired size to scale the imoji to. Both the border width and shadow size are scaled proportionally to the target size
+* @param options Set of options to render the imoji with
 * @param callback Called once the imoji UIImage has been rendered
 * @return An operation reference that can be used to cancel the request.
 */
 - (NSOperation *)renderImoji:(IMImojiObject *)imoji
-                     quality:(IMImojiObjectRenderQuality)quality
-                  targetSize:(CGSize)targetSize
-                    callback:(IMImojiSessionImojiRenderResponseCallback)callback;
-
-
-/**
-* @abstract Renders an imoji object into a image with the specified border color.
-* The border widths and shadow size are scaled proportionally to the size of the image.
-* @param imoji The imoji to render.
-* @param quality The desired quality of the image to load.
-* @param borderColor Color of the border.
-* @param callback Called once the imoji UIImage has been rendered
-* @return An operation reference that can be used to cancel the request.
-*/
-- (NSOperation *)renderImoji:(IMImojiObject *)imoji
-                     quality:(IMImojiObjectRenderQuality)quality
-                 borderColor:(UIColor *)borderColor
-                    callback:(IMImojiSessionImojiRenderResponseCallback)callback;
-
-/**
-* @abstract Renders an imoji object into a image with the specified border color and width.
-* @param imoji The imoji to render.
-* @param quality The desired quality of the image to load.
-* @param borderColor Color of the border.
-* @param borderWidth Width of the border.
-* @return An operation reference that can be used to cancel the request.
-*/
-- (NSOperation *)renderImoji:(IMImojiObject *)imoji
-                     quality:(IMImojiObjectRenderQuality)quality
-                 borderColor:(UIColor *)borderColor
-                 borderWidth:(CGFloat)borderWidth
-                    callback:(IMImojiSessionImojiRenderResponseCallback)callback;
-
-/**
-* @abstract Renders an imoji object into a image with a specified border color. The imoji image is scaled to fit the specified target size.
-* The border widths and shadow size are scaled proportionally to targetSize or the size of the imoji image itself, whichever is smaller.
-* @param imoji The imoji to render.
-* @param quality The desired quality of the image to load.
-* @param targetSize The desired size to scale the imoji to. Both the border width and shadow size are scaled proportionally to the target size.
-* @param borderColor Color of the border.
-* @param callback Called once the imoji UIImage has been rendered
-* @return An operation reference that can be used to cancel the request.
-*/
-- (NSOperation *)renderImoji:(IMImojiObject *)imoji
-                     quality:(IMImojiObjectRenderQuality)quality
-                  targetSize:(CGSize)targetSize
-                 borderColor:(UIColor *)borderColor
-                    callback:(IMImojiSessionImojiRenderResponseCallback)callback;
-
-
-/**
-* @abstract Renders an imoji object into a image with a specified border color and width. The imoji image is scaled to fit the specified target size.
-* @param imoji The imoji to render.
-* @param quality The desired quality of the image to load.
-* @param targetSize The desired size to scale the imoji to.
-* @param borderColor Color of the border.
-* @param borderWidth Width of the border.
-* @param callback Called once the imoji UIImage has been rendered
-* @return An operation reference that can be used to cancel the request.
-*/
-- (NSOperation *)renderImoji:(IMImojiObject *)imoji
-                     quality:(IMImojiObjectRenderQuality)quality
-                  targetSize:(CGSize)targetSize
-                 borderColor:(UIColor *)borderColor
-                 borderWidth:(CGFloat)borderWidth
+                     options:(IMImojiObjectRenderingOptions *)options
                     callback:(IMImojiSessionImojiRenderResponseCallback)callback;
 
 @end

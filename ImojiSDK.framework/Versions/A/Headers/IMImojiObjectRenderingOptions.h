@@ -61,6 +61,13 @@ typedef NS_ENUM(NSUInteger, IMImojiObjectRenderSize) {
 */
 @property(nonatomic, strong) NSNumber *shadowBlurPercentage;
 
+/**
+* @abstract The desired shadow offset.
+* The content of the NSValue object is a CGSize struct (use [NSValue valueWithCGSize] to populate)
+*/
+@property(nonatomic, strong) NSValue *shadowOffset;
+
+
 + (instancetype)optionsWithRenderSize:(IMImojiObjectRenderSize)renderSize;
 
 

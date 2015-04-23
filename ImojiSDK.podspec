@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'ImojiSDK'
-  s.version = "0.1.4"
+  s.version = "0.1.5"
   s.summary = "iOS SDK for Imoji"
   s.homepage = "http://imojiapp.com/sdk"
   s.license = 'Commercial'
@@ -15,7 +15,6 @@ Pod::Spec.new do |s|
 
   s.dependency "AFNetworking"
   s.dependency "Bolts"
-  s.dependency "CocoaLumberjack"
   s.dependency "iOS-WebP", "~> 0.5"
   
 end

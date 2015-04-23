@@ -10,8 +10,6 @@
 */
 @interface IMImojiSessionStoragePolicy : NSObject
 
-@property(nonatomic, strong, readonly) NSURL *path;
-
 /**
 *  @abstract Generates a storage policy that writes assets to a temporary directory. Contents stored within the
 *  temporary directory are removed at unspecified times by the operating system.

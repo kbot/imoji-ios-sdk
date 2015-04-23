@@ -38,23 +38,6 @@ typedef NS_ENUM(NSUInteger, IMImojiSessionErrorCode) {
     IMImojiSessionErrorCodeInvalidImage
 };
 
-/**
-* DEPRECATED: See IMImojiObjectRenderingOptions
-*/
-typedef NS_ENUM(NSUInteger, IMImojiObjectRenderQuality) {
-    /**
-    * @abstract When used, a compressed version of the Imoji is downloaded and rendered. This setting is useful when
-    * the consumer wishes to load and display multiple imojis as fast as possible. Sizes of the thumbnail imojis vary
-    * but do not exceed 150x150 pixels
-    */
-    IMImojiObjectRenderQualityThumbnail,
-    /**
-    * @abstract When used, a high resolution image of the Imoji is downloaded and rendered. This setting is useful when
-    * the consumer wishes to export the imoji to another application or simply display a large version of it.
-    */
-    IMImojiObjectRenderQualityFullResolution
-} __deprecated;
-
 typedef void (^IMImojiSessionSearchResponseCallback)(NSNumber *resultCount, NSError *error);
 
 typedef void (^IMImojiSessionImojiFetchedResponseCallback)(IMImojiObject *imoji, NSUInteger index, NSError *error);
@@ -96,7 +79,7 @@ typedef void (^IMImojiSessionImojiRenderResponseCallback)(UIImage *image, NSErro
 
 /**
 * @abstract Searches the imojis database with a given search term. The searchResponseCallback block is called once the results are available.
-* Imojis contents are downloaded individually and imojiResponseCallback is called once the thumbnail of that imoji has been downloaded.
+* Imoji contents are downloaded individually and imojiResponseCallback is called once the thumbnail of that imoji has been downloaded.
 * @param searchTerm Search term to find imojis with. If nil or empty, the server will typically returned the featured set of imojis (this is subject to change).
 * @param offset The result offset from a previous search. This may be nil.
 * @param numberOfResults Number of results to fetch. This can be nil.
@@ -110,7 +93,7 @@ typedef void (^IMImojiSessionImojiRenderResponseCallback)(UIImage *image, NSErro
 
 /**
 * @abstract Gets a random set of featured imojis. The searchResponseCallback block is called once the results are available.
-* Imojis contents are downloaded individually and imojiResponseCallback is called once the thumbnail of that imoji has been downloaded.
+* Imoji contents are downloaded individually and imojiResponseCallback is called once the thumbnail of that imoji has been downloaded.
 * @param numberOfResults Number of results to fetch. This can be nil.
 * @return An operation reference that can be used to cancel the request.
 */
@@ -120,7 +103,7 @@ typedef void (^IMImojiSessionImojiRenderResponseCallback)(UIImage *image, NSErro
 
 /**
 * @abstract Gets corresponding IMImojiObject's for one or more imoji identifiers as NSString's
-* Imojis contents are downloaded individually and fetchedResponseCallback is called once the thumbnail of that imoji has been downloaded.
+* Imoji contents are downloaded individually and fetchedResponseCallback is called once the thumbnail of that imoji has been downloaded.
 * @return An operation reference that can be used to cancel the request.
 */
 - (NSOperation *)fetchImojisByIdentifiers:(NSArray *)imojiObjectIdentifiers
@@ -130,20 +113,6 @@ typedef void (^IMImojiSessionImojiRenderResponseCallback)(UIImage *image, NSErro
 
 
 @interface IMImojiSession (ImojiDisplaying)
-
-/**
-* DEPRECATED: Use renderImoji:options:callback instead
-*
-* @abstract Renders an imoji object into a image with a white border.
-* The border widths and shadow size are scaled proportionally to the size of the image.
-* @param imoji The imoji to render.
-* @param quality The desired quality of the image to load.
-* @param callback Called once the imoji UIImage has been rendered
-* @return An operation reference that can be used to cancel the request.
-*/
-- (NSOperation *)renderImoji:(IMImojiObject *)imoji
-                     quality:(IMImojiObjectRenderQuality)quality
-                    callback:(IMImojiSessionImojiRenderResponseCallback)callback __deprecated;
 
 /**
 * @abstract Renders an imoji object into a image with a specified border and shadow. The imoji image is scaled to fit the specified target size.

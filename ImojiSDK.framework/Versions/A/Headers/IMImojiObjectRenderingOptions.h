@@ -7,6 +7,9 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <UIKit/UIKit.h>
 
+/**
+* @abstract Specifies the imoji image quality to use for rendering.
+*/
 typedef NS_ENUM(NSUInteger, IMImojiObjectRenderSize) {
     /**
     * @abstract When used, a compressed version of the Imoji is downloaded and rendered. This setting is useful when
@@ -35,7 +38,8 @@ typedef NS_ENUM(NSUInteger, IMImojiObjectRenderSize) {
 
 /**
 * @abstract The desired size to scale the IMImojiObject to.
-* The content of the NSValue object is a CGSize struct (use [NSValue valueWithCGSize] to populate)
+* The content of the NSValue object is a CGSize struct
+* @see [NSValue valueWithCGSize:](https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSValue_Class/index.html#//apple_ref/occ/clm/NSValue/valueWithCGSize:)
 */
 @property(nonatomic, strong) NSValue *targetSize;
 
@@ -63,7 +67,8 @@ typedef NS_ENUM(NSUInteger, IMImojiObjectRenderSize) {
 
 /**
 * @abstract The desired shadow offset.
-* The content of the NSValue object is a CGSize struct (use [NSValue valueWithCGSize] to populate)
+* The content of the NSValue object is a CGSize struct
+* @see [NSValue valueWithCGSize:](https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSValue_Class/index.html#//apple_ref/occ/clm/NSValue/valueWithCGSize:)
 */
 @property(nonatomic, strong) NSValue *shadowOffset;
 

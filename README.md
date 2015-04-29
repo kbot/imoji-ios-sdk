@@ -39,7 +39,7 @@ Initiate the client id and api token for ImojiSDK. You can add this to the appli
 
 ### Synchronization of user accounts
 
-Apps using the ImojiSDK can synchronize with an Imoji account to pull personalized content created by that user. In order to do so you must first register a URL type for your application in the following format
+Apps using the ImojiSDK can synchronize with an Imoji account to pull personalized content created by that user. Imoji builds version 2.1.1 and greater are required for testing. You can install a pre-release build for testing (see Beta Builds below). In order to do so you must first register a URL type for your application in the following format
 
 ```
 imoji<client-id>
@@ -79,3 +79,11 @@ Once you're app has established a synchronized state, you can then call
 ```
 
 The resultSetResponseCallback and imojiResponseCallback work exactly like they do with searching and pulling featured imojis.
+
+### Beta Builds
+
+Pre-release beta builds are available on [https://developer.imoji.io/download](https://developer.imoji.io/download) 
+
+**User** imoji
+
+**Password** developer

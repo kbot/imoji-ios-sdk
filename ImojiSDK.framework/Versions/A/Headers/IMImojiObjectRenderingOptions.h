@@ -66,6 +66,14 @@ typedef NS_ENUM(NSUInteger, IMImojiObjectRenderSize) {
 @property(nonatomic, strong) NSNumber *shadowBlurPercentage;
 
 /**
+* @abstract An optional aspect ratio to fit the image into when rendering. The height or width is padded appropriately to
+* accommodate to the desired aspect
+* The content of the NSValue object is a CGSize struct
+* @see [NSValue valueWithCGSize:](https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSValue_Class/index.html#//apple_ref/occ/clm/NSValue/valueWithCGSize:)
+*/
+@property(nonatomic, strong) NSValue *aspectRatio;
+
+/**
 * @abstract The desired shadow offset.
 * The content of the NSValue object is a CGSize struct
 * @see [NSValue valueWithCGSize:](https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSValue_Class/index.html#//apple_ref/occ/clm/NSValue/valueWithCGSize:)

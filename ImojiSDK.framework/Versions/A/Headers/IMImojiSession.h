@@ -137,7 +137,7 @@ typedef void (^IMImojiSessionAsyncResponseCallback)(BOOL successful, NSError *er
 /**
 * @abstract An optional session delegate to receive notifications when session information changes
 */
-@property (nonatomic, strong) id<IMImojiSessionDelegate> delegate;
+@property(nonatomic, strong) id <IMImojiSessionDelegate> delegate;
 
 @end
 
@@ -248,6 +248,12 @@ typedef void (^IMImojiSessionAsyncResponseCallback)(BOOL successful, NSError *er
 * @see [UIApplicationDelegate application:openURL:sourceApplication:annotation:](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplicationDelegate_Protocol/index.html#//apple_ref/occ/intfm/UIApplicationDelegate/application:openURL:sourceApplication:annotation:)
 */
 - (BOOL)handleImojiAppRequest:(NSURL *)url sourceApplication:(NSString *)sourceApplication;
+
+/**
+* @abstract Removes the synchronization state from the session. Upon calling this method
+* @param callback Status callback triggered when the routine is finished. This can be nil.
+*/
+- (void)clearUserSynchronizationStatus:(IMImojiSessionAsyncResponseCallback)callback;
 
 @end
 

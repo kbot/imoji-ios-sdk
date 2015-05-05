@@ -47,7 +47,7 @@ imoji<client-id>
 EX: imoji075286df-163d-4979-be8c-c4f9337aa2c6
 ```
 
-See [https://coderwall.com/p/mtjaeq/ios-custom-url-scheme](https://coderwall.com/p/mtjaeq/ios-custom-url-scheme) for a simple example of how to setup this up for your application.
+See [https://coderwall.com/p/mtjaeq/ios-custom-url-scheme](https://coderwall.com/p/mtjaeq/ios-custom-url-scheme) for a simple example of how to set this up for your application.
 
 After setting up the URL type, override the application:openURL:sourceApplication:annotation: method in your AppDelegate class and add checks for handling Imoji SDK entries:
 

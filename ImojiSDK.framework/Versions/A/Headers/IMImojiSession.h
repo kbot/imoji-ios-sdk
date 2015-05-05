@@ -83,7 +83,7 @@ typedef void (^IMImojiSessionResultSetResponseCallback)(NSNumber *resultCount, N
 
 /**
 * @abstract Callback used for generic asynchronous requests
-* @param image UIImage representation of the IMImojiObject
+* @param imoji The fetched IMImojiObject
 * @param index Position in the results set the imoji belongs to
 * @param error An error with code equal to an IMImojiSessionErrorCode value or nil if the request succeeded
 */

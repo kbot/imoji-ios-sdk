@@ -75,6 +75,23 @@ typedef NS_ENUM(NSUInteger, IMImojiSessionErrorCode) {
 };
 
 /**
+* @abstract Defines a high level grouping of category types
+*/
+typedef NS_ENUM(NSUInteger, IMImojiSessionCategoryClassification) {
+    /**
+    * @abstract Allows for the caller to obtain all trending and time sensitive categories
+    * (ex: sporting events, holidays, etc).
+    */
+    IMImojiSessionCategoryClassificationTrending,
+
+    /**
+    * @abstract Allows for the caller to obtain categories of imojis that are not time sensitive
+    * (ex: emotions, locations, people, etc).
+    */
+    IMImojiSessionCategoryClassificationGeneric
+};
+
+/**
 * @abstract Callback used for triggering when the server has loaded a result set
 * @param resultCount Number of results returned by the server. This can never be nil.
 * @param error An error with code equal to an IMImojiSessionErrorCode value or nil if the request succeeded
@@ -148,10 +165,20 @@ typedef void (^IMImojiSessionAsyncResponseCallback)(BOOL successful, NSError *er
 
 /**
 * @abstract Fetches top level imoji categories.
+* DEPRECATED: Use getImojiCategoriesWithClassification:callback instead
 * @param callback Block callback to call when categories have been downloaded.
 * @return An operation reference that can be used to cancel the request.
 */
-- (NSOperation *)getImojiCategories:(IMImojiSessionImojiCategoriesResponseCallback)callback;
+- (NSOperation *)getImojiCategories:(IMImojiSessionImojiCategoriesResponseCallback)callback __deprecated;
+
+/**
+* @abstract Fetches top level imoji categories given a classification type.
+* @param classification Type of category classification to retrieve
+* @param callback Block callback to call when categories have been downloaded.
+* @return An operation reference that can be used to cancel the request.
+*/
+- (NSOperation *)getImojiCategoriesWithClassification:(IMImojiSessionCategoryClassification)classification
+                                             callback:(IMImojiSessionImojiCategoriesResponseCallback)callback;
 
 /**
 * @abstract Searches the imojis database with a given search term. The resultSetResponseCallback block is called once the results are available.
@@ -261,7 +288,7 @@ typedef void (^IMImojiSessionAsyncResponseCallback)(BOOL successful, NSError *er
 /**
 * @abstract Delegate protocol for IMImojiSession
 */
-@protocol IMImojiSessionDelegate<NSObject>
+@protocol IMImojiSessionDelegate <NSObject>
 
 @optional
 

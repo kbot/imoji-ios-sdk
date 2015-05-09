@@ -44,6 +44,14 @@ typedef NS_ENUM(NSUInteger, IMImojiObjectRenderSize) {
 @property(nonatomic, strong) NSValue *targetSize;
 
 /**
+* @abstract The maximum bounding size to render the IMImojiObject to. When setting options such as aspectRatio,
+* the overall size of the image may grow quite large depending on the aspect. Use this option to limit the growth.
+* The content of the NSValue object is a CGSize struct
+* @see [NSValue valueWithCGSize:](https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSValue_Class/index.html#//apple_ref/occ/clm/NSValue/valueWithCGSize:)
+*/
+@property(nonatomic, strong) NSValue *maximumRenderSize;
+
+/**
 * @abstract Color of the border. If nil, the default border color of white will be used.
 */
 @property(nonatomic, strong) UIColor *borderColor;

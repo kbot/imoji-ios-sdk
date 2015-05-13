@@ -82,7 +82,7 @@ The resultSetResponseCallback and imojiResponseCallback work exactly like they d
 
 ### Beta Builds
 
-Pre-release beta builds are available on [https://developer.imoji.io/download](https://developer.imoji.io/download) 
+Pre-release beta builds are available on [https://developer.imoji.io/developer/download](https://developer.imoji.io/developer/download) 
 
 **User** imoji
 

@@ -5,13 +5,7 @@ To integrate with Imoji, you'll need to add the ImojiSDK framework to your proje
 
 ### Getting Setup With Pods
 
-Add the Imoji repo to your Podfile
-
-```
-source 'https://github.com/imojiengineering/imoji-pods-specs.git'
-```
-
-Then add the ImojiSDK entry to your Podfile
+Add the ImojiSDK entry to your Podfile
 
 ```
 pod 'ImojiSDK'

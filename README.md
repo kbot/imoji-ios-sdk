@@ -1,9 +1,10 @@
 # Imoji SDK
 
-To integrate with Imoji, you'll need to add the ImojiSDK framework to your project. The simplest way to do this is by using CocoaPods to get up and running.
+### Setup
 
+Sign up for a free developer account at [https://developer.imoji.io](https://developer.imoji.io) to get your API keys
 
-### Getting Setup With Pods
+### Cocoa Pods Setup
 
 Add the ImojiSDK entry to your Podfile
 

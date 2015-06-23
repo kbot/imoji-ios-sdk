@@ -82,9 +82,9 @@ typedef NS_ENUM(NSUInteger, IMImojiObjectRenderSize) {
 @property(nonatomic, strong) NSValue *aspectRatio;
 
 /**
-* @abstract The desired shadow offset.
-* The content of the NSValue object is a CGSize struct
-* @see [NSValue valueWithCGSize:](https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSValue_Class/index.html#//apple_ref/occ/clm/NSValue/valueWithCGSize:)
+* @abstract The desired shadow offset in percentages between 0 and 1
+* The content of the NSValue object is a CGPoint struct
+* @see [NSValue valueWithCGPoint:](https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSValue_Class/index.html#//apple_ref/occ/clm/NSValue/valueWithCGPoint:)
 */
 @property(nonatomic, strong) NSValue *shadowOffset;
 

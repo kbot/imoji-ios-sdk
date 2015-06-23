@@ -1,11 +1,11 @@
 Pod::Spec.new do |s|
   s.name = 'ImojiSDK'
-  s.version = "0.1.18"
+  s.version = "0.1.19"
   s.summary = "iOS SDK for Imoji"
   s.homepage = "http://imojiapp.com/sdk"
   s.license = 'Commercial'
   s.authors = {"Nima Khoshini"=>"nima@imojiapp.com"}
-  s.libraries = 'z'
+  s.libraries = 'c++'
   s.requires_arc = true
   s.source = { git: 'https://github.com/imojiengineering/imoji-ios-sdk.git', tag: "#{s.version}" }
   s.platform = :ios, '7.0'

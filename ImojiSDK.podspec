@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'ImojiSDK'
-  s.version = "0.1.20"
+  s.version = "0.1.21"
   s.summary = "iOS SDK for Imoji"
   s.homepage = "http://imojiapp.com/sdk"
   s.license = 'Commercial'
@@ -12,6 +12,7 @@ Pod::Spec.new do |s|
   s.preserve_paths = 'ImojiSDK.framework'
   s.public_header_files = 'ImojiSDK.framework/Versions/A/Headers/*.h'
   s.vendored_frameworks = 'ImojiSDK.framework'
+  s.ios.frameworks = ["Accelerate"]
 
   s.dependency "Bolts", '~> 1.1'
   s.dependency "libwebp", "~> 0.4.3"

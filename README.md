@@ -75,3 +75,13 @@ Once you're app has established a synchronized state, you can then call
 
 The resultSetResponseCallback and imojiResponseCallback work exactly like they do with searching and pulling featured imojis.
 
+
+### Troubleshooting
+
+##### Trouble Linking With ImojiSDK for Application Extensions (ie Keybords)
+
+ImojiSDK uses the App Links Protocol support provided by the Bolts library for authenticating sessions. However for application extensions, objects such as [UIApplication sharedApplication] are prohibited from being used. Compiling Bolts statically will cause errors for your application extension. You can instead link to ImojiSDK using frameworks by adding the following line to your Podfile
+
+```
+use_frameworks!
+```

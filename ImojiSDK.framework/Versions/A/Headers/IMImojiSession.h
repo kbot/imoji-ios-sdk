@@ -71,7 +71,11 @@ typedef NS_ENUM(NSUInteger, IMImojiSessionErrorCode) {
     /**
     * @abstract Used when IMImojiSession is unable to carry a request because the Imoji application is not installed
     */
-    IMImojiSessionErrorCodeImojiApplicationNotInstalled
+    IMImojiSessionErrorCodeImojiApplicationNotInstalled,
+    /**
+    * @abstract Used when IMImojiSession is unable to render the IMImojiObject
+    */
+    IMImojiSessionErrorCodeImojiRenderingUnavailable
 };
 
 /**
@@ -155,6 +159,11 @@ typedef void (^IMImojiSessionAsyncResponseCallback)(BOOL successful, NSError *er
 * @abstract An optional session delegate to receive notifications when session information changes
 */
 @property(nonatomic, strong) id <IMImojiSessionDelegate> delegate;
+
+/**
+* @abstract An optional cache instance to be used for optimizing rendering calls
+*/
+@property(nonatomic, strong) NSCache *contentCache;
 
 @end
 

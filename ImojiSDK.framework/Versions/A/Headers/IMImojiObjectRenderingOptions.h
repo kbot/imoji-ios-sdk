@@ -104,4 +104,23 @@ typedef NS_ENUM(NSUInteger, IMImojiObjectRenderSize) {
                 borderWidthPercentage:(NSNumber *)borderWidthPercentage
                           shadowColor:(UIColor *)shadowColor
                  shadowBlurPercentage:(NSNumber *)shadowBlurPercentage;
+
+/**
+* @abstract Helper initializer to render images with no border or shadow
+* @param renderSize The desired render size
+*/
++ (instancetype)borderAndShadowlessOptionsWithRenderSize:(IMImojiObjectRenderSize)renderSize;
+
+/**
+* @abstract Helper initializer to render images with a shadow but no border
+* @param renderSize The desired render size
+*/
++ (instancetype)borderlessOptionsWithRenderSize:(IMImojiObjectRenderSize)renderSize;
+
+/**
+* @abstract Helper initializer to render images with a default border but no shadow
+* @param renderSize The desired render size
+*/
++ (instancetype)shadowlessOptionsWithRenderSize:(IMImojiObjectRenderSize)renderSize;
+
 @end

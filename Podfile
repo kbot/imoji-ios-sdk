@@ -4,7 +4,6 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 def shared_pods
   pod 'Bolts'
-  pod 'CocoaLumberjack'
   pod 'libwebp'
 end
 

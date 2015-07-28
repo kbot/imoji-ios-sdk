@@ -17,10 +17,4 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-//#ifdef DEBUG
-//#define IMLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
-//#else
-#define IMLog( s, ... )
-//#endif
-
 #endif

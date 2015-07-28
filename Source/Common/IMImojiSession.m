@@ -188,12 +188,10 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
     NSOperation *cancellationToken = self.cancellationTokenOperation;
 
     if (numberOfResults && numberOfResults.integerValue <= 0) {
-        IMLog(@"Invalid number of results %@, defaulting to nil", numberOfResults);
         numberOfResults = nil;
     }
 
     if (offset && offset.integerValue < 0) {
-        IMLog(@"Invalid offset %@, defaulting to nil", numberOfResults);
         offset = nil;
     }
 
@@ -231,7 +229,6 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
 
     id numResultsValue;
     if (numberOfResults && numberOfResults.integerValue <= 0) {
-        IMLog(@"Invalid number of results %@, defaulting to nil", numberOfResults);
         numResultsValue = [NSNull null];
     } else {
         numResultsValue = numberOfResults != nil ? numberOfResults : [NSNull null];
@@ -444,7 +441,6 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
 
     [[self getEncryptedClientToken] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
-            IMLog(@"Unable to verify client %@", task.error);
             if (error) {
                 *error = [NSError errorWithDomain:IMImojiSessionErrorDomain
                                              code:IMImojiSessionErrorCodeUserAuthenticationFailed
@@ -493,7 +489,6 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
             case BFAppLinkNavigationTypeFailure:
             default:
                 if (navigationError && error) {
-                    IMLog(@"Unable to open link %@", navigationError);
                     *error = [NSError errorWithDomain:IMImojiSessionErrorDomain
                                                  code:IMImojiSessionErrorCodeUserAuthenticationFailed
                                              userInfo:@{
@@ -625,7 +620,6 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
         if ([IMImojiSession credentials].accessToken) {
             // refresh
             if ([IMImojiSession credentials].expirationDate && [[IMImojiSession credentials].expirationDate compare:[NSDate date]] != NSOrderedDescending) {
-                IMLog(@"Getting new session with refresh token…");
                 [[self runPostTaskWithPath:@"/oauth/token"
                                    headers:self.getOAuthBearerHeaders
                              andParameters:@{@"grant_type" : @"refresh_token", @"refresh_token" : [IMImojiSession credentials].refreshToken}]
@@ -658,7 +652,6 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
                 [self updateImojiState:[IMImojiSession credentials].accountSynchronized ? IMImojiSessionStateConnectedSynchronized : IMImojiSessionStateConnected];
             }
         } else {
-            IMLog(@"Getting new session token…");
             [[self runPostTaskWithPath:@"/oauth/token"
                                headers:self.getOAuthBearerHeaders
                          andParameters:@{@"grant_type" : @"client_credentials"}]
@@ -677,7 +670,6 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
 
                             taskCompletionSource.result = [IMImojiSession credentials].accessToken;
                         } else {
-                            IMLog(@"server error: %@", postTask.error);
                             taskCompletionSource.error = [NSError errorWithDomain:IMImojiSessionErrorDomain
                                                                              code:IMImojiSessionErrorCodeServerError
                                                                          userInfo:@{
@@ -715,16 +707,12 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
             NSError *error;
             NSData *data = [NSData dataWithContentsOfFile:sessionFile options:0 error:&error];
 
-            if (error) {
-                IMLog(@"unable to read file %@", error);
-            } else {
+            if (!error) {
                 NSDictionary *jsonInfo = [NSJSONSerialization JSONObjectWithData:data
                                                                          options:NSJSONReadingAllowFragments
                                                                            error:&error];
 
-                if (error) {
-                    IMLog(@"unable to read json data %@", error);
-                } else {
+                if (!error) {
                     [self readAuthenticationFromDictionary:jsonInfo];
                 }
             }
@@ -750,7 +738,6 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
                                                              error:&error];
 
         if (error) {
-            IMLog(@"unable to serialize link to json %@", error);
             return nil;
         }
 
@@ -758,7 +745,6 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
         [jsonData writeToFile:sessionFile options:NSDataWritingAtomic error:&error];
 
         if (error) {
-            IMLog(@"unable to write file %@", error);
             return nil;
         }
 
@@ -768,7 +754,6 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
                             error:&error];
 
         if (error) {
-            IMLog(@"unable update file settings %@", error);
             return nil;
         }
 
@@ -908,7 +893,6 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
             }
 
             if (jsonError) {
-                IMLog(@"unable to read json data %@", error);
                 taskCompletionSource.error = jsonError;
             } else {
                 if ([response isKindOfClass:[NSHTTPURLResponse class]] &&
@@ -1045,7 +1029,6 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
                                     imojiResponseCallback:imojiResponseCallback
                             ];
                         } else {
-                            IMLog(@"Unable to download %@ error code: %@", url, @(urlTask.error.code));
                             imojiResponseCallback(imoji, imojiIndex, [NSError errorWithDomain:IMImojiSessionErrorDomain
                                                                                          code:IMImojiSessionErrorCodeServerError
                                                                                      userInfo:@{

@@ -52,9 +52,7 @@
                     SKStoreProductParameterITunesItemIdentifier : ImojiSDKMainAppStoreId
             }
                                           completionBlock:^(BOOL result, NSError *error) {
-                                              if (error) {
-                                                  IMLog(@"Unable to load view controller %@", error);
-                                              } else {
+                                              if (!error) {
                                                   [parent presentViewController:storeProductViewController animated:YES completion:nil];
                                               }
                                           }];

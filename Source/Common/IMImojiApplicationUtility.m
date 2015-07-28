@@ -53,7 +53,7 @@
             }
                                           completionBlock:^(BOOL result, NSError *error) {
                                               if (error) {
-                                                  DLog(@"Unable to load view controller %@", error);
+                                                  IMLog(@"Unable to load view controller %@", error);
                                               } else {
                                                   [parent presentViewController:storeProductViewController animated:YES completion:nil];
                                               }

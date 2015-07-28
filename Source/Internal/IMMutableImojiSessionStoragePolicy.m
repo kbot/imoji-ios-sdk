@@ -59,12 +59,12 @@ NSUInteger const IMMutableImojiSessionStoragePolicyDefaultExpirationTimeInSecond
                                                         error:&error];
 
         if (error) {
-            DLog(@"Unable to imoji cache directory! %@", error);
+            IMLog(@"Unable to imoji cache directory! %@", error);
         } else {
-            DLog(@"Imoji cache directory is: %@", self.cachePath);
+            IMLog(@"Imoji cache directory is: %@", self.cachePath);
         }
     } else {
-        DLog(@"Imoji cache directory is: %@", self.cachePath);
+        IMLog(@"Imoji cache directory is: %@", self.cachePath);
     }
 
     if (![[NSFileManager defaultManager] fileExistsAtPath:self.persistentPath.path]) {
@@ -75,12 +75,12 @@ NSUInteger const IMMutableImojiSessionStoragePolicyDefaultExpirationTimeInSecond
                                                         error:&error];
 
         if (error) {
-            DLog(@"Unable to create image directory! %@", error);
+            IMLog(@"Unable to create image directory! %@", error);
         } else {
-            DLog(@"Persistent Imoji directory is: %@", self.persistentPath.path);
+            IMLog(@"Persistent Imoji directory is: %@", self.persistentPath.path);
         }
     } else {
-        DLog(@"Persistent Imoji directory is: %@", self.persistentPath.path);
+        IMLog(@"Persistent Imoji directory is: %@", self.persistentPath.path);
     }
 
 }
@@ -102,7 +102,7 @@ NSUInteger const IMMutableImojiSessionStoragePolicyDefaultExpirationTimeInSecond
                                                   error:&error];
 
                               if (error) {
-                                  DLog(@"Unable to write imoji contents for id %@. Reason %@", imoji.identifier, error);
+                                  IMLog(@"Unable to write imoji contents for id %@. Reason %@", imoji.identifier, error);
                               }
 
                               return nil;
@@ -123,14 +123,14 @@ NSUInteger const IMMutableImojiSessionStoragePolicyDefaultExpirationTimeInSecond
                                  error:&error];
 
             if (error) {
-                DLog(@"unable to update file %@", error);
+                IMLog(@"unable to update file %@", error);
             }
 
             return nil;
         }];
 
         if (error) {
-            DLog(@"unable to read file %@", error);
+            IMLog(@"unable to read file %@", error);
             return nil;
         } else {
             return data;
@@ -152,7 +152,7 @@ NSUInteger const IMMutableImojiSessionStoragePolicyDefaultExpirationTimeInSecond
         [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
 
         if (error) {
-            DLog(@"Unable to remove image directory! %@", error);
+            IMLog(@"Unable to remove image directory! %@", error);
         }
     }
 }
@@ -175,7 +175,7 @@ NSUInteger const IMMutableImojiSessionStoragePolicyDefaultExpirationTimeInSecond
             }
 
             if (error) {
-                DLog(@"Unable to get file attributes: %@", error);
+                IMLog(@"Unable to get file attributes: %@", error);
             }
         }
 

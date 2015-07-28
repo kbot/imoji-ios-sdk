@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.homepage = 'http://imoji.io/sdk'
   s.authors = {'Nima Khoshini'=>'nima@imojiapp.com'}
 
-  s.source   = { :git => 'https://github.com/imojiengineering/imoji-ios-sdk.git', :tag => '#{s.version}' }
+  s.source   = { :git => 'https://github.com/imojiengineering/imoji-ios-sdk.git', :tag => '0.2.0' }
   s.ios.deployment_target = '7.0'
 
   s.source_files = 'Source/**/*.{h,m}'

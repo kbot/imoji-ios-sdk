@@ -71,11 +71,12 @@ NSUInteger const IMMutableImojiSessionStoragePolicyDefaultExpirationTimeInSecond
 
 - (BFTask *)writeImoji:(IMImojiObject *)imoji
                quality:(IMImojiObjectRenderSize)quality
+                format:(IMPhotoImageFormat)format
          imageContents:(NSData *)imageContents
            synchronous:(BOOL)synchronous {
     return [BFTask taskFromExecutor:synchronous ? [BFExecutor mainThreadExecutor] : [BFTask im_concurrentBackgroundExecutor]
                           withBlock:^id(BFTask *task) {
-                              NSString *fullImojiPath = [NSString stringWithFormat:@"%@/%@-%@", self.cachePath.path, @(quality), imoji.identifier];
+                              NSString *fullImojiPath = [NSString stringWithFormat:@"%@/%@-%@.%@", self.cachePath.path, @(quality), imoji.identifier, @(format)];
                               NSError *error;
 
                               [imageContents writeToFile:fullImojiPath options:NSDataWritingAtomic error:&error];
@@ -90,8 +91,9 @@ NSUInteger const IMMutableImojiSessionStoragePolicyDefaultExpirationTimeInSecond
 }
 
 - (NSData *)readImojiImage:(IMImojiObject *)imoji
-                   quality:(IMImojiObjectRenderSize)quality {
-    NSString *fullImojiPath = [NSString stringWithFormat:@"%@/%@-%@", self.cachePath.path, @(quality), imoji.identifier];
+                   quality:(IMImojiObjectRenderSize)quality
+                    format:(IMPhotoImageFormat)format {
+    NSString *fullImojiPath = [NSString stringWithFormat:@"%@/%@-%@.%@", self.cachePath.path, @(quality), imoji.identifier, @(format)];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:fullImojiPath]) {
         __block NSError *error;
@@ -116,8 +118,9 @@ NSUInteger const IMMutableImojiSessionStoragePolicyDefaultExpirationTimeInSecond
 }
 
 - (BOOL)imojiExists:(IMImojiObject *)imoji
-            quality:(IMImojiObjectRenderSize)quality {
-    NSString *fullImojiPath = [NSString stringWithFormat:@"%@/%@-%@", self.cachePath.path, @(quality), imoji.identifier];
+            quality:(IMImojiObjectRenderSize)quality
+             format:(IMPhotoImageFormat)format {
+    NSString *fullImojiPath = [NSString stringWithFormat:@"%@/%@-%@.%@", self.cachePath.path, @(quality), imoji.identifier, @(format)];
     return [[NSFileManager defaultManager] fileExistsAtPath:fullImojiPath];
 }
 

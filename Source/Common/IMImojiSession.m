@@ -165,7 +165,7 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
                 for (NSDictionary *dictionary in categories) {
                     [imojiCategories addObject:[IMMutableCategoryObject objectWithIdentifier:[dictionary im_checkedStringForKey:@"id"]
                                                                                        order:order++
-                                                                                previewImoji:[self readImojiObject:dictionary[@"imoji"]]
+                                                                                previewImoji:[self readImojiObject:dictionary]
                                                                                     priority:[dictionary im_checkedNumberForKey:@"priority" defaultValue:@0].unsignedIntegerValue
                                                                                        title:[dictionary im_checkedStringForKey:@"title"]]];
                 }
@@ -1063,7 +1063,7 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
 
 - (IMMutableImojiObject *)readImojiObject:(NSDictionary *)result {
     if (result) {
-        NSString *imojiId = result[@"id"];
+        NSString *imojiId = [result im_checkedStringForKey:@"imojiId"] ? [result im_checkedStringForKey:@"imojiId"] : [result im_checkedStringForKey:@"id"];
         NSDictionary * webpImages = result[@"images"][@"webp"];
         NSArray *tags = [result[@"tags"] isKindOfClass:[NSArray class]] ? result[@"tags"] : @[];
         IMPhotoImageFormat format = IMPhotoImageFormatWebP;

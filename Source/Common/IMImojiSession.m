@@ -163,7 +163,7 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
                 NSMutableArray *imojiCategories = [NSMutableArray arrayWithCapacity:categories.count];
 
                 for (NSDictionary *dictionary in categories) {
-                    [imojiCategories addObject:[IMMutableCategoryObject objectWithIdentifier:[dictionary im_checkedStringForKey:@"id"]
+                    [imojiCategories addObject:[IMMutableCategoryObject objectWithIdentifier:[dictionary im_checkedStringForKey:@"searchText"]
                                                                                        order:order++
                                                                                 previewImoji:[self readImojiObject:dictionary]
                                                                                     priority:[dictionary im_checkedNumberForKey:@"priority" defaultValue:@0].unsignedIntegerValue

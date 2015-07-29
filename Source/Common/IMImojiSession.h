@@ -193,14 +193,6 @@ typedef void (^IMImojiSessionAsyncResponseCallback)(BOOL successful, NSError *er
 @interface IMImojiSession (ImojiFetching)
 
 /**
-* @abstract Fetches top level imoji categories.
-* DEPRECATED: Use getImojiCategoriesWithClassification:callback instead
-* @param callback Block callback to call when categories have been downloaded.
-* @return An operation reference that can be used to cancel the request.
-*/
-- (NSOperation *)getImojiCategories:(IMImojiSessionImojiCategoriesResponseCallback)callback __deprecated;
-
-/**
 * @abstract Fetches top level imoji categories given a classification type.
 * @param classification Type of category classification to retrieve
 * @param callback Block callback to call when categories have been downloaded.

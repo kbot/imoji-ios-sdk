@@ -135,11 +135,6 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
 
 #pragma mark Public Methods
 
-- (NSOperation *)getImojiCategories:(IMImojiSessionImojiCategoriesResponseCallback)callback {
-    return [self getImojiCategoriesWithClassification:IMImojiSessionCategoryClassificationGeneric
-                                             callback:callback];
-}
-
 - (NSOperation *)getImojiCategoriesWithClassification:(IMImojiSessionCategoryClassification)classification
                                              callback:(IMImojiSessionImojiCategoriesResponseCallback)callback {
     NSOperation *cancellationToken = self.cancellationTokenOperation;

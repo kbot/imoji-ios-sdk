@@ -72,32 +72,6 @@ typedef NS_ENUM(NSUInteger, IMImojiObjectRenderSize) {
 @property(nonatomic, strong) NSValue *maximumRenderSize;
 
 /**
-* @abstract Color of the border. If nil, the default border color of white will be used.
-* DEPRECATED: Border and shadow properties are no longer supported by the ImojiSDK
-*/
-@property(nonatomic, strong) UIColor *borderColor __deprecated;
-
-/**
-* @abstract Percentage of either the width or height (whichever is larger) to use as border width.
-* DEPRECATED: Border and shadow properties are no longer supported by the ImojiSDK
-*  If nil, a default value of 5% is used
-*/
-@property(nonatomic, strong) NSNumber *borderWidthPercentage __deprecated;
-
-/**
-* @abstract Color of the drop shadow. If nil, an 80% opaque black color is used.
-* DEPRECATED: Border and shadow properties are no longer supported by the ImojiSDK
-*/
-@property(nonatomic, strong) UIColor *shadowColor __deprecated;
-
-/**
-* @abstract Percentage of either the width or height (whichever is larger) of the IMImojiObject image to use as shadow blur.
-* DEPRECATED: Border and shadow properties are no longer supported by the ImojiSDK
-*  If nil, a default value of 3% is used
-*/
-@property(nonatomic, strong) NSNumber *shadowBlurPercentage __deprecated;
-
-/**
 * @abstract An optional aspect ratio to fit the image into when rendering. The height or width is padded appropriately to
 * accommodate to the desired aspect
 * The content of the NSValue object is a CGSize struct
@@ -105,49 +79,6 @@ typedef NS_ENUM(NSUInteger, IMImojiObjectRenderSize) {
 */
 @property(nonatomic, strong) NSValue *aspectRatio;
 
-/**
-* @abstract The desired shadow offset in percentages between 0 and 1
-* DEPRECATED: Border and shadow properties are no longer supported by the ImojiSDK
-* The content of the NSValue object is a CGPoint struct
-* @see [NSValue valueWithCGPoint:](https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSValue_Class/index.html#//apple_ref/occ/clm/NSValue/valueWithCGPoint:)
-*/
-@property(nonatomic, strong) NSValue *shadowOffset __deprecated;
-
-
 + (instancetype)optionsWithRenderSize:(IMImojiObjectRenderSize)renderSize;
-
-+ (instancetype)optionsWithRenderSize:(IMImojiObjectRenderSize)renderSize
-                          borderColor:(UIColor *)borderColor __deprecated;
-
-+ (instancetype)optionsWithRenderSize:(IMImojiObjectRenderSize)renderSize
-                          borderColor:(UIColor *)borderColor
-                borderWidthPercentage:(NSNumber *)borderWidthPercentage __deprecated;
-
-+ (instancetype)optionsWithRenderSize:(IMImojiObjectRenderSize)renderSize
-                          borderColor:(UIColor *)borderColor
-                borderWidthPercentage:(NSNumber *)borderWidthPercentage
-                          shadowColor:(UIColor *)shadowColor
-                 shadowBlurPercentage:(NSNumber *)shadowBlurPercentage __deprecated;
-
-/**
-* @abstract Helper initializer to render images with no border or shadow
-* DEPRECATED: Border and shadow properties are no longer supported by the ImojiSDK
-* @param renderSize The desired render size
-*/
-+ (instancetype)borderAndShadowlessOptionsWithRenderSize:(IMImojiObjectRenderSize)renderSize __deprecated;
-
-/**
-* @abstract Helper initializer to render images with a shadow but no border
-* DEPRECATED: Border and shadow properties are no longer supported by the ImojiSDK
-* @param renderSize The desired render size
-*/
-+ (instancetype)borderlessOptionsWithRenderSize:(IMImojiObjectRenderSize)renderSize __deprecated;
-
-/**
-* @abstract Helper initializer to render images with a default border but no shadow
-* DEPRECATED: Border and shadow properties are no longer supported by the ImojiSDK
-* @param renderSize The desired render size
-*/
-+ (instancetype)shadowlessOptionsWithRenderSize:(IMImojiObjectRenderSize)renderSize __deprecated;
 
 @end

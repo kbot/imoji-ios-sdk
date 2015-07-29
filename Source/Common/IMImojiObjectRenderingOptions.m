@@ -29,18 +29,10 @@
 
 }
 
-- (instancetype)initWithRenderSize:(IMImojiObjectRenderSize)renderSize
-                       borderColor:(UIColor *)borderColor
-             borderWidthPercentage:(NSNumber *)borderWidthPercentage
-                       shadowColor:(UIColor *)shadowColor
-              shadowBlurPercentage:(NSNumber *)shadowBlurPercentage {
+- (instancetype)initWithRenderSize:(IMImojiObjectRenderSize)renderSize {
     self = [super init];
     if (self) {
         self.renderSize = renderSize;
-        self.borderColor = borderColor;
-        self.borderWidthPercentage = borderWidthPercentage;
-        self.shadowColor = shadowColor;
-        self.shadowBlurPercentage = shadowBlurPercentage;
     }
 
     return self;
@@ -51,76 +43,11 @@
     hash = hash * 31u + (NSUInteger) self.renderSize;
     hash = hash * 31u + [self.targetSize hash];
     hash = hash * 31u + [self.maximumRenderSize hash];
-    hash = hash * 31u + [self.borderColor hash];
-    hash = hash * 31u + [self.borderWidthPercentage hash];
-    hash = hash * 31u + [self.shadowColor hash];
-    hash = hash * 31u + [self.shadowBlurPercentage hash];
-    hash = hash * 31u + [self.shadowOffset hash];
-
     return hash;
 }
 
 + (instancetype)optionsWithRenderSize:(IMImojiObjectRenderSize)renderSize {
-    return [[self alloc] initWithRenderSize:renderSize
-                                borderColor:nil
-                      borderWidthPercentage:nil
-                                shadowColor:nil
-                       shadowBlurPercentage:nil];
-}
-
-+ (instancetype)optionsWithRenderSize:(IMImojiObjectRenderSize)renderSize
-                          borderColor:(UIColor *)borderColor {
-    return [[self alloc] initWithRenderSize:renderSize
-                                borderColor:borderColor
-                      borderWidthPercentage:nil
-                                shadowColor:nil
-                       shadowBlurPercentage:nil];
-}
-
-+ (instancetype)optionsWithRenderSize:(IMImojiObjectRenderSize)renderSize
-                          borderColor:(UIColor *)borderColor
-                borderWidthPercentage:(NSNumber *)borderWidthPercentage {
-    return [[self alloc] initWithRenderSize:renderSize
-                                borderColor:borderColor
-                      borderWidthPercentage:borderWidthPercentage
-                                shadowColor:nil
-                       shadowBlurPercentage:nil];
-}
-
-+ (instancetype)optionsWithRenderSize:(IMImojiObjectRenderSize)renderSize
-                          borderColor:(UIColor *)borderColor
-                borderWidthPercentage:(NSNumber *)borderWidthPercentage
-                          shadowColor:(UIColor *)shadowColor
-                 shadowBlurPercentage:(NSNumber *)shadowBlurPercentage {
-    return [[self alloc] initWithRenderSize:renderSize
-                                borderColor:borderColor
-                      borderWidthPercentage:borderWidthPercentage
-                                shadowColor:shadowColor
-                       shadowBlurPercentage:shadowBlurPercentage];
-}
-
-+ (instancetype)borderAndShadowlessOptionsWithRenderSize:(IMImojiObjectRenderSize)renderSize {
-    return [[self alloc] initWithRenderSize:renderSize
-                                borderColor:nil
-                      borderWidthPercentage:@(0)
-                                shadowColor:nil
-                       shadowBlurPercentage:@(0)];
-}
-
-+ (instancetype)borderlessOptionsWithRenderSize:(IMImojiObjectRenderSize)renderSize {
-    return [[self alloc] initWithRenderSize:renderSize
-                                borderColor:nil
-                      borderWidthPercentage:@(0)
-                                shadowColor:nil
-                       shadowBlurPercentage:nil];
-}
-
-+ (instancetype)shadowlessOptionsWithRenderSize:(IMImojiObjectRenderSize)renderSize {
-    return [[self alloc] initWithRenderSize:renderSize
-                                borderColor:nil
-                      borderWidthPercentage:nil
-                                shadowColor:nil
-                       shadowBlurPercentage:@(0)];
+    return [[self alloc] initWithRenderSize:renderSize];
 }
 
 @end

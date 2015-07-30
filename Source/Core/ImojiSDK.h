@@ -30,7 +30,6 @@
 #import "IMImojiObjectRenderingOptions.h"
 #import "IMImojiSessionStoragePolicy.h"
 #import "IMImojiSession.h"
-#import "IMImojiApplicationUtility.h"
 
 /**
 * @abstract Base class for coordinating with other ImojiSDK classes

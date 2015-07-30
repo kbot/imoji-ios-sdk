@@ -151,7 +151,9 @@ typedef void (^IMImojiSessionImojiRenderResponseCallback)(UIImage *image, NSErro
 */
 typedef void (^IMImojiSessionAsyncResponseCallback)(BOOL successful, NSError *error);
 
-@interface IMImojiSession : NSObject
+@interface IMImojiSession : NSObject {
+    IMImojiSessionState _sessionState;
+}
 
 /**
 * @abstract Creates a imoji session object.
@@ -184,6 +186,9 @@ typedef void (^IMImojiSessionAsyncResponseCallback)(BOOL successful, NSError *er
 * @abstract An optional cache instance to be used for optimizing rendering calls
 */
 @property(nonatomic, strong) NSCache *contentCache;
+
+
+@property(nonatomic, readonly) IMImojiSessionStoragePolicy *storagePolicy;
 
 @end
 
@@ -258,67 +263,6 @@ typedef void (^IMImojiSessionAsyncResponseCallback)(BOOL successful, NSError *er
                     callback:(IMImojiSessionImojiRenderResponseCallback)callback;
 
 @end
-
-@interface IMImojiSession (UserSynchronization)
-
-/**
-* @abstract Attempts to synchronize a session with the iOS Imoji application. This method will open the Imoji application
-* and either ask the user to register/login if there is no active session, or grant the logged in user access to the
-* allow ImojiSDK to access it's information. If the application is not installed or does not support authorization,
-* an error is returned in the callback.
-* @param error If an error occurred while trying to load the Imoji iOS application
-*/
-- (void)requestUserSynchronizationWithError:(NSError **)error;
-
-/**
-* @abstract Used to determine if the launched URL from application:openURL:sourceApplication:annotation in
-* UIApplicationDelegate is originated by the ImojiSDK
-* @param url URL from application:openURL:sourceApplication:annotation
-* @param sourceApplication If an error occurred while trying to load the Imoji iOS application
-* @see [UIApplicationDelegate application:openURL:sourceApplication:annotation:](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplicationDelegate_Protocol/index.html#//apple_ref/occ/intfm/UIApplicationDelegate/application:openURL:sourceApplication:annotation:)
-*/
-- (BOOL)isImojiAppRequest:(NSURL *)url sourceApplication:(NSString *)sourceApplication;
-
-/**
-* @abstract Handles the URL passed to application:openURL:sourceApplication:annotation for authentication
-* @param url URL from UIApplicationDelegate application:openURL:sourceApplication:annotation
-* @param sourceApplication sourceApplication from UIApplicationDelegate application:openURL:sourceApplication:annotation
-* @see [UIApplicationDelegate application:openURL:sourceApplication:annotation:](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplicationDelegate_Protocol/index.html#//apple_ref/occ/intfm/UIApplicationDelegate/application:openURL:sourceApplication:annotation:)
-*/
-- (BOOL)handleImojiAppRequest:(NSURL *)url sourceApplication:(NSString *)sourceApplication;
-
-/**
-* @abstract Removes the synchronization state from the session. Upon calling this method
-* @param callback Status callback triggered when the routine is finished. This can be nil.
-*/
-- (void)clearUserSynchronizationStatus:(IMImojiSessionAsyncResponseCallback)callback;
-
-@end
-
-@interface IMImojiSession (SynchronizedUserActions)
-
-/**
-* @abstract Gets imojis associated to the synchronized user account. The sessionState must be IMImojiSessionStateConnectedSynchronized
-* in order to receive user imojis.
-* @param resultSetResponseCallback Callback triggered when the results are available or if an error occurred.
-* @param imojiResponseCallback Callback triggered when an imoji is available to render.
-* @return An operation reference that can be used to cancel the request.
-*/
-- (NSOperation *)getImojisForAuthenticatedUserWithResultSetResponseCallback:(IMImojiSessionResultSetResponseCallback)resultSetResponseCallback
-                                                      imojiResponseCallback:(IMImojiSessionImojiFetchedResponseCallback)imojiResponseCallback;
-
-/**
-* @abstract Adds a given IMImojiObject to a users collection which is also synchronized with their account.
-* The sessionState must be IMImojiSessionStateConnectedSynchronized in order to receive user imojis.
-* @param imojiObject The Imoji object to save to the users collection
-* @param callback Called once the save operation is complete
-* @return An operation reference that can be used to cancel the request.
-*/
-- (NSOperation *)addImojiToUserCollection:(IMImojiObject *)imojiObject
-                                 callback:(IMImojiSessionAsyncResponseCallback)callback;
-
-@end
-
 
 /**
 * @abstract Delegate protocol for IMImojiSession

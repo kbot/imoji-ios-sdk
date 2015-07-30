@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "ImojiSDK.h"
+#import "IMImojiSession+Sync.h"
 #import "BFTask.h"
 #import "BFTaskCompletionSource.h"
 

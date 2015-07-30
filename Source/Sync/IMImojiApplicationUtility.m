@@ -26,8 +26,6 @@
 #import <StoreKit/StoreKit.h>
 #import "IMImojiApplicationUtility.h"
 #import "ImojiSDKConstants.h"
-#import "IMImojiSession.h"
-#import "ImojiSDK.h"
 
 @interface IMImojiApplicationUtility () <SKStoreProductViewControllerDelegate>
 @end

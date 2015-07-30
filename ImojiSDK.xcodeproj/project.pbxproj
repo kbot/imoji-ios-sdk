@@ -32,6 +32,7 @@
 		1AFE25531B69AB4B00E8E454 /* IMImojiApplicationUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFE253E1B69AB4B00E8E454 /* IMImojiApplicationUtility.m */; };
 		1AFE25541B69AB4B00E8E454 /* IMImojiSession+Sync.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFE25401B69AB4B00E8E454 /* IMImojiSession+Sync.m */; };
 		2885358EEC55C74F7DB6D4FE /* libPods-ImojiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF50299CE9BAE7D4661E2684 /* libPods-ImojiSDK.a */; };
+		61FCE17B3BC6AE5D2B6A1306 /* IMImojiSession+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = 61FCE3A098EC5F0180AED92C /* IMImojiSession+Testing.m */; };
 		61FCE1E9A4B309046D51E918 /* IMImojiSession+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 61FCE7B0D9C3D62F48CCF6CC /* IMImojiSession+Private.m */; };
 		61FCEDC04D2BB195BAC82567 /* IMImojiSessionCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 61FCECBE84F01AC3C39D1810 /* IMImojiSessionCredentials.m */; };
 		FC2BABC255BD089D45DBA657 /* libPods-ImojiSDKTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E6D70D3094BE84DF986A1EE /* libPods-ImojiSDKTests.a */; };
@@ -66,6 +67,7 @@
 		1A961F5F1B682E0C00B9D257 /* ImojiSDKTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImojiSDKTests.m; path = Test/ImojiSDKTests.m; sourceTree = SOURCE_ROOT; };
 		1A961F611B682E5D00B9D257 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		1A961F641B683A1F00B9D257 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		1AF792261B6AAF740046C3ED /* ImojiSyncSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImojiSyncSDK.h; sourceTree = "<group>"; };
 		1AFE25141B69AB4B00E8E454 /* BFTask+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BFTask+Utils.h"; sourceTree = "<group>"; };
 		1AFE25151B69AB4B00E8E454 /* BFTask+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BFTask+Utils.m"; sourceTree = "<group>"; };
 		1AFE25161B69AB4B00E8E454 /* NSArray+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Utils.h"; sourceTree = "<group>"; };
@@ -109,6 +111,8 @@
 		1AFE253F1B69AB4B00E8E454 /* IMImojiSession+Sync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IMImojiSession+Sync.h"; sourceTree = "<group>"; };
 		1AFE25401B69AB4B00E8E454 /* IMImojiSession+Sync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IMImojiSession+Sync.m"; sourceTree = "<group>"; };
 		5E6D70D3094BE84DF986A1EE /* libPods-ImojiSDKTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ImojiSDKTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		61FCE3A098EC5F0180AED92C /* IMImojiSession+Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IMImojiSession+Testing.m"; sourceTree = "<group>"; };
+		61FCE43FF4DD6ECBA4BFA041 /* IMImojiSession+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IMImojiSession+Testing.h"; sourceTree = "<group>"; };
 		61FCE7B0D9C3D62F48CCF6CC /* IMImojiSession+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IMImojiSession+Private.m"; sourceTree = "<group>"; };
 		61FCECBE84F01AC3C39D1810 /* IMImojiSessionCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMImojiSessionCredentials.m; sourceTree = "<group>"; };
 		61FCEE6B426D0C240507A74A /* IMImojiSession+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IMImojiSession+Private.h"; sourceTree = "<group>"; };
@@ -236,10 +240,12 @@
 				1AFE25361B69AB4B00E8E454 /* IMMutableImojiSessionStoragePolicy.m */,
 				1AFE25371B69AB4B00E8E454 /* ImojiSDKConstants.h */,
 				1AFE25381B69AB4B00E8E454 /* ImojiSDKConstants.m */,
-				61FCE7B0D9C3D62F48CCF6CC /* IMImojiSession+Private.m */,
 				61FCEE6B426D0C240507A74A /* IMImojiSession+Private.h */,
+				61FCE7B0D9C3D62F48CCF6CC /* IMImojiSession+Private.m */,
 				61FCECBE84F01AC3C39D1810 /* IMImojiSessionCredentials.m */,
 				61FCEF9E5C1AB89264A0430E /* IMImojiSessionCredentials.h */,
+				61FCE3A098EC5F0180AED92C /* IMImojiSession+Testing.m */,
+				61FCE43FF4DD6ECBA4BFA041 /* IMImojiSession+Testing.h */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -256,6 +262,7 @@
 		1AFE253C1B69AB4B00E8E454 /* Sync */ = {
 			isa = PBXGroup;
 			children = (
+				1AF792261B6AAF740046C3ED /* ImojiSyncSDK.h */,
 				1AFE253D1B69AB4B00E8E454 /* IMImojiApplicationUtility.h */,
 				1AFE253E1B69AB4B00E8E454 /* IMImojiApplicationUtility.m */,
 				1AFE253F1B69AB4B00E8E454 /* IMImojiSession+Sync.h */,
@@ -462,6 +469,7 @@
 				1AFE254C1B69AB4B00E8E454 /* IMImojiSessionStoragePolicy.m in Sources */,
 				61FCE1E9A4B309046D51E918 /* IMImojiSession+Private.m in Sources */,
 				61FCEDC04D2BB195BAC82567 /* IMImojiSessionCredentials.m in Sources */,
+				61FCE17B3BC6AE5D2B6A1306 /* IMImojiSession+Testing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

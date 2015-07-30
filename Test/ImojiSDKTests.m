@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "ImojiSDK.h"
-#import "IMImojiSession+Sync.h"
+#import "ImojiSyncSDK.h"
+#import "IMImojiSession+Testing.h"
 #import "BFTask.h"
 #import "BFTaskCompletionSource.h"
 

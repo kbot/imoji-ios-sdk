@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name     = 'ImojiSDK'
-  s.version  = '0.2.7'
+  s.version  = '0.2.8'
   s.license  = 'MIT'
   s.summary  = 'iOS SDK for Imoji.'
   s.homepage = 'http://imoji.io/sdk'
@@ -22,8 +22,8 @@ Pod::Spec.new do |s|
 
   s.subspec 'Core' do |ss|
     ss.dependency "Bolts/Tasks", '~> 1.2'
-
     ss.dependency "libwebp", "~> 0.4.3"
+
     ss.ios.source_files = 'Source/Core/**/*.{h,m}'
     ss.ios.public_header_files = 'Source/Core/*.h'
   end

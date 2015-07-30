@@ -9,6 +9,7 @@
 
 @class IMImojiSessionCredentials;
 @class IMMutableImojiObject;
+@class BFTask;
 
 extern IMPhotoImageFormat const IMImojiPreferredImageFormat;
 
@@ -19,16 +20,6 @@ extern IMPhotoImageFormat const IMImojiPreferredImageFormat;
 + (IMImojiSessionCredentials *)credentials;
 
 + (NSURLSession *)ephemeralBackgroundURLSession;
-
-- (BOOL)validateServerResponse:(NSDictionary *)results error:(NSError **)error;
-
-- (NSArray *)convertServerDataSetToImojiArray:(NSDictionary *)serverResponse;
-
-- (void)handleImojiFetchResponse:(NSArray *)imojiObjects quality:(IMImojiObjectRenderSize)quality cancellationToken:(NSOperation *)cancellationToken searchResponseCallback:(IMImojiSessionResultSetResponseCallback)searchResponseCallback imojiResponseCallback:(IMImojiSessionImojiFetchedResponseCallback)imojiResponseCallback;
-
-- (void)downloadImojiImageAsync:(IMMutableImojiObject *)imoji quality:(IMImojiObjectRenderSize)quality imojiIndex:(NSUInteger)imojiIndex cancellationToken:(NSOperation *)cancellationToken imojiResponseCallback:(IMImojiSessionImojiFetchedResponseCallback)imojiResponseCallback;
-
-- (IMMutableImojiObject *)readImojiObject:(NSDictionary *)result;
 
 #pragma mark Auth
 
@@ -42,7 +33,7 @@ extern IMPhotoImageFormat const IMImojiPreferredImageFormat;
 
 - (NSOperation *)cancellationTokenOperation;
 
-#pragma mark Network
+#pragma mark Network Requests
 
 - (BFTask *)runPostTaskWithPath:(NSString *)path headers:(NSDictionary *)headers andParameters:(NSDictionary *)parameters;
 
@@ -50,20 +41,22 @@ extern IMPhotoImageFormat const IMImojiPreferredImageFormat;
 
 - (BFTask *)runValidatedPostTaskWithPath:(NSString *)path andParameters:(NSDictionary *)parameters;
 
-- (NSDictionary *)getRequestHeaders:(NSDictionary *)additionalHeaders;
-
-- (BFTask *)runValidatedImojiURLRequest:(NSURL *)url parameters:(NSDictionary *)parameters method:(NSString *)method headers:(NSDictionary *)headers;
-
-- (BFTask *)runImojiURLRequest:(NSMutableURLRequest *)request headers:(NSDictionary *)headers;
-
-- (BFTask *)runExternalURLRequest:(NSMutableURLRequest *)request headers:(NSDictionary *)headers;
-
 - (BFTask *)validateSession;
 
-- (NSDictionary *)getOAuthBearerHeaders;
+#pragma mark Network Responses
+
+- (BOOL)validateServerResponse:(NSDictionary *)results error:(NSError **)error;
+
+- (NSArray *)convertServerDataSetToImojiArray:(NSDictionary *)serverResponse;
+
+- (void)handleImojiFetchResponse:(NSArray *)imojiObjects quality:(IMImojiObjectRenderSize)quality cancellationToken:(NSOperation *)cancellationToken searchResponseCallback:(IMImojiSessionResultSetResponseCallback)searchResponseCallback imojiResponseCallback:(IMImojiSessionImojiFetchedResponseCallback)imojiResponseCallback;
+
+- (void)downloadImojiImageAsync:(IMMutableImojiObject *)imoji quality:(IMImojiObjectRenderSize)quality imojiIndex:(NSUInteger)imojiIndex cancellationToken:(NSOperation *)cancellationToken imojiResponseCallback:(IMImojiSessionImojiFetchedResponseCallback)imojiResponseCallback;
+
+- (IMMutableImojiObject *)readImojiObject:(NSDictionary *)result;
+
+#pragma mark Session State Management
 
 - (void)updateImojiState:(IMImojiSessionState)newState;
-
-- (NSString *)sessionFilePath;
 
 @end

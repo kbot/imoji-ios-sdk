@@ -63,27 +63,3 @@
 - (void)clearUserSynchronizationStatus:(IMImojiSessionAsyncResponseCallback)callback;
 
 @end
-
-@interface IMImojiSession (SynchronizedUserActions)
-
-/**
-* @abstract Gets imojis associated to the synchronized user account. The sessionState must be IMImojiSessionStateConnectedSynchronized
-* in order to receive user imojis.
-* @param resultSetResponseCallback Callback triggered when the results are available or if an error occurred.
-* @param imojiResponseCallback Callback triggered when an imoji is available to render.
-* @return An operation reference that can be used to cancel the request.
-*/
-- (NSOperation *)getImojisForAuthenticatedUserWithResultSetResponseCallback:(IMImojiSessionResultSetResponseCallback)resultSetResponseCallback
-                                                      imojiResponseCallback:(IMImojiSessionImojiFetchedResponseCallback)imojiResponseCallback;
-
-/**
-* @abstract Adds a given IMImojiObject to a users collection which is also synchronized with their account.
-* The sessionState must be IMImojiSessionStateConnectedSynchronized in order to receive user imojis.
-* @param imojiObject The Imoji object to save to the users collection
-* @param callback Called once the save operation is complete
-* @return An operation reference that can be used to cancel the request.
-*/
-- (NSOperation *)addImojiToUserCollection:(IMImojiObject *)imojiObject
-                                 callback:(IMImojiSessionAsyncResponseCallback)callback;
-
-@end

@@ -13,7 +13,6 @@
 #import "RequestUtils.h"
 #import "ImojiSDKConstants.h"
 #import "IMMutableImojiSessionStoragePolicy.h"
-#import "NSString+Utils.h"
 #import "IMMutableImojiObject.h"
 #import "NSDictionary+Utils.h"
 #import "NSArray+Utils.h"
@@ -591,13 +590,6 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
     } else {
         return nil;
     }
-}
-
-#pragma mark Testing
-
-- (BFTask *)randomAuthToken {
-    [IMImojiSession credentials].accessToken = [NSString im_stringWithRandomUUID];
-    return [self writeAuthenticationCredentials];
 }
 
 @end

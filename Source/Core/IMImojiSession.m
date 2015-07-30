@@ -322,6 +322,82 @@ NSString *const IMImojiSessionErrorDomain = @"IMImojiSessionErrorDomain";
     return cancellationToken;
 }
 
+- (NSOperation *)addImojiToUserCollection:(IMImojiObject *)imojiObject
+                                 callback:(IMImojiSessionAsyncResponseCallback)callback {
+    NSOperation *cancellationToken = self.cancellationTokenOperation;
+
+    if (self.sessionState != IMImojiSessionStateConnectedSynchronized) {
+        callback(NO, [NSError errorWithDomain:IMImojiSessionErrorDomain
+                                         code:IMImojiSessionErrorCodeSessionNotSynchronized
+                                     userInfo:@{
+                                             NSLocalizedDescriptionKey : @"IMImojiSession has not been synchronized."
+                                     }]);
+
+        return cancellationToken;
+    }
+
+    [[self runValidatedPostTaskWithPath:@"/user/imoji/collection/add" andParameters:@{
+            @"imojiId" : imojiObject.identifier
+    }] continueWithExecutor:[BFExecutor mainThreadExecutor] withBlock:^id(BFTask *getTask) {
+        if (cancellationToken.cancelled) {
+            return [BFTask cancelledTask];
+        }
+
+        NSDictionary *results = getTask.result;
+        NSError *error;
+        [self validateServerResponse:results error:&error];
+
+        if (error) {
+            callback(NO, error);
+        } else {
+            callback(YES, nil);
+        }
+
+        return nil;
+    }];
+
+    return cancellationToken;
+}
+
+- (NSOperation *)getImojisForAuthenticatedUserWithResultSetResponseCallback:(IMImojiSessionResultSetResponseCallback)resultSetResponseCallback
+                                                      imojiResponseCallback:(IMImojiSessionImojiFetchedResponseCallback)imojiResponseCallback {
+    NSOperation *cancellationToken = self.cancellationTokenOperation;
+
+    if (self.sessionState != IMImojiSessionStateConnectedSynchronized) {
+        resultSetResponseCallback(nil, [NSError errorWithDomain:IMImojiSessionErrorDomain
+                                                           code:IMImojiSessionErrorCodeSessionNotSynchronized
+                                                       userInfo:@{
+                                                               NSLocalizedDescriptionKey : @"IMImojiSession has not been synchronized."
+                                                       }]);
+
+        return cancellationToken;
+    }
+
+    [[self runValidatedGetTaskWithPath:@"/user/imoji/fetch" andParameters:@{}] continueWithExecutor:[BFExecutor mainThreadExecutor] withBlock:^id(BFTask *getTask) {
+        if (cancellationToken.cancelled) {
+            return [BFTask cancelledTask];
+        }
+
+        NSDictionary *results = getTask.result;
+        NSError *error;
+        [self validateServerResponse:results error:&error];
+
+        if (error) {
+            resultSetResponseCallback(nil, error);
+        } else {
+            [self handleImojiFetchResponse:[self convertServerDataSetToImojiArray:results]
+                                   quality:IMImojiObjectRenderSizeThumbnail
+                         cancellationToken:cancellationToken
+                    searchResponseCallback:resultSetResponseCallback
+                     imojiResponseCallback:imojiResponseCallback];
+        }
+
+        return nil;
+    }];
+
+    return cancellationToken;
+}
+
 - (void)clearUserSynchronizationStatus:(IMImojiSessionAsyncResponseCallback)callback {
     [self renewCredentials:callback];
 }

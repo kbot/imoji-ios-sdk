@@ -61,6 +61,13 @@ After setting up the URL type, override the application:openURL:sourceApplicatio
 }
 ```
 
+Ensure you have the ImojiSyncSDK.h header imported as well to import the required files.
+
+```
+#import <ImojiSDK/ImojiSyncSDK.h>
+```
+
+
 If authentication succeeded for the user in the Imoji iOS application, the **sessionState** property in **IMImojiSession** will now be set to **IMImojiSessionStateConnectedSynchronized**. 
 
 The **IMImojiSessionDelegate** protocol will also call imojiSession:stateChanged:fromState: when this state changes, therefore you can perform the approach UI actions to display a synchronized state with a delegate.
@@ -78,10 +85,10 @@ The resultSetResponseCallback and imojiResponseCallback work exactly like they d
 
 ### Troubleshooting
 
-##### Trouble Linking With ImojiSDK for Application Extensions (ie Keybords)
+##### Trouble Linking With ImojiSDK for Application Extensions (ie Keyboards)
 
-ImojiSDK uses the App Links Protocol support provided by the Bolts library for authenticating sessions. However for application extensions, objects such as [UIApplication sharedApplication] are prohibited from being used. Compiling Bolts statically will cause errors for your application extension. You can instead link to ImojiSDK using frameworks by adding the following line to your Podfile
+ImojiSDK uses the App Links Protocol support provided by the Bolts library for authenticating sessions. Not all applications require user account synchronization however. To use the ImojiSDK without pulling the sync files, simply add the **Core** pod subspec:
 
 ```
-use_frameworks!
+pod 'ImojiSDK/Core'
 ```

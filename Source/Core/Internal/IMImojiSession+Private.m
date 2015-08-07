@@ -577,10 +577,19 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
 - (IMMutableImojiObject *)readImojiObject:(NSDictionary *)result {
     if (result) {
         NSString *imojiId = [result im_checkedStringForKey:@"imojiId"] ? [result im_checkedStringForKey:@"imojiId"] : [result im_checkedStringForKey:@"id"];
-        NSDictionary *webpImages = result[@"images"][@"webp"];
         NSArray *tags = [result[@"tags"] isKindOfClass:[NSArray class]] ? result[@"tags"] : @[];
-        NSURL *thumbURL = [NSURL URLWithString:webpImages[@"150"][@"url"]];
-        NSURL *fullURL = [NSURL URLWithString:webpImages[@"1200"][@"url"]];
+
+        NSURL *thumbURL;
+        NSURL *fullURL;
+        if (result[@"images"]) {
+            NSDictionary *imagesDictionary = result[@"images"];
+            thumbURL = [NSURL URLWithString:imagesDictionary[@"webp"][@"150"][@"url"]];
+            fullURL = [NSURL URLWithString:imagesDictionary[@"webp"][@"1200"][@"url"]];
+        } else {
+            NSDictionary *imagesDictionary = result[@"urls"];
+            thumbURL = [NSURL URLWithString:imagesDictionary[@"webp"][@"thumb"]];
+            fullURL = [NSURL URLWithString:imagesDictionary[@"webp"][@"full"]];
+        }
 
         return [IMMutableImojiObject imojiWithIdentifier:imojiId
                                                     tags:tags

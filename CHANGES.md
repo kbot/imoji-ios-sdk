@@ -1,5 +1,10 @@
 # Imoji SDK Changes
 
+### Version 0.2.9
+
+* Addresses issue with fetchImojisByIdentifier not properly loading. The results were not being read properly from the server.
+
+
 ### Version 0.2.8
 
 * Split out Imoji User Authentication Code to a separate Pod subspec. Our authentication portion requires app linking to work, which does not play nicely with WatchKit or Keyboard extensions. Add **pod 'ImojiSDK/Core'** to your Podfile to avoid grabbing the authentication code.

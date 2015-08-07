@@ -563,7 +563,8 @@ NSString *const IMImojiSessionErrorDomain = @"IMImojiSessionErrorDomain";
     dispatch_once(&predicate, ^{
         categoryClassifications = @{
                 @(IMImojiSessionCategoryClassificationTrending) : @"trending",
-                @(IMImojiSessionCategoryClassificationGeneric) : @"generic"
+                @(IMImojiSessionCategoryClassificationGeneric) : @"generic",
+                @(IMImojiSessionCategoryClassificationNone) : @"none"
         };
     });
 

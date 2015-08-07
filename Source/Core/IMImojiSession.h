@@ -112,7 +112,12 @@ typedef NS_ENUM(NSUInteger, IMImojiSessionCategoryClassification) {
     * @abstract Allows for the caller to obtain categories of imojis that are not time sensitive
     * (ex: emotions, locations, people, etc).
     */
-    IMImojiSessionCategoryClassificationGeneric
+    IMImojiSessionCategoryClassificationGeneric,
+    
+    /**
+     * @abstract Allows for the caller to obtain all categories.
+     */
+    IMImojiSessionCategoryClassificationNone
 };
 
 /**

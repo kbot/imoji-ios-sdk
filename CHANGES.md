@@ -1,5 +1,10 @@
 # Imoji SDK Changes
 
+### Version 0.2.10
+
+* Adds support for opening Imoji authentication URL's with web links for iOS 9
+
+
 ### Version 0.2.9
 
 * Addresses issue with fetchImojisByIdentifier not properly loading. The results were not being read properly from the server.

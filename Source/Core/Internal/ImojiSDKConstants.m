@@ -33,11 +33,11 @@
 NSString *const ImojiSDKAuthClientPayloadURLKey = @"payload";
 NSString *const ImojiSDKAuthReferringAppSchemeURLKey = @"referringApp";
 NSString *const ImojiSDKAuthURLScheme = @"imojiaction";
-NSString *const ImojiSDKAuthWebUrl = @"https://developer.imoji.io/auth";
+NSString *const ImojiSDKAuthWebUrl = @"https://imoji.io/auth";
 NSString *const ImojiSDKAuthStatus = @"status";
 NSString *const ImojiSDKMainAppStoreId = @"884963181";
 NSString *const ImojiSDKMainAppStoreName = @"imojiapp";
-NSString *const ImojiSDKVersion = @"0.2.0";
+NSString *const ImojiSDKVersion = @"0.1.0";
 
 NSString *const ImojiSDKServerURL = @"https://api.imoji.io/v2";
 

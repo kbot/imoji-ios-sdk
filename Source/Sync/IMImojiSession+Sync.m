@@ -46,7 +46,9 @@
 @implementation IMImojiSession (UserSynchronization)
 
 - (void)requestUserSynchronizationWithError:(NSError **)error {
-    if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@://", ImojiSDKAuthURLScheme]]]) {
+    BOOL deepLinkingSupported = !([[[UIDevice currentDevice] systemVersion] compare:@"9.0" options:NSNumericSearch] == NSOrderedAscending);
+    
+    if (!deepLinkingSupported && ![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:ImojiSDKAuthWebUrl]]) {
         if (error) {
             *error = [NSError errorWithDomain:IMImojiSessionErrorDomain
                                          code:IMImojiSessionErrorCodeImojiApplicationNotInstalled
@@ -69,12 +71,25 @@
             return nil;
         }
 
-        BFAppLinkTarget *target = [BFAppLinkTarget appLinkTargetWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@://", ImojiSDKAuthURLScheme]]
-                                                             appStoreId:ImojiSDKMainAppStoreId
-                                                                appName:ImojiSDKMainAppStoreName];
-
+        NSMutableArray *targets = [NSMutableArray array];
+        
+        // support for opening Imoji through web url's in iOS 9 and later
+        if (deepLinkingSupported) {
+            BFAppLinkTarget *webTarget = [BFAppLinkTarget appLinkTargetWithURL:[NSURL URLWithString:ImojiSDKAuthWebUrl]
+                                                                    appStoreId:ImojiSDKMainAppStoreId
+                                                                       appName:ImojiSDKMainAppStoreName];
+            
+            [targets addObject:webTarget];
+        }
+        
+        // fallback to opening imoji with the app scheme otherwise
+        BFAppLinkTarget *appTarget = [BFAppLinkTarget appLinkTargetWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@://", ImojiSDKAuthURLScheme]]
+                                                                appStoreId:ImojiSDKMainAppStoreId
+                                                                   appName:ImojiSDKMainAppStoreName];
+        [targets addObject:appTarget];
+        
         BFAppLink *appLink = [BFAppLink appLinkWithSourceURL:[NSURL URLWithString:ImojiSDKAuthWebUrl]
-                                                     targets:@[target]
+                                                     targets:targets
                                                       webURL:nil];
 
         BFAppLinkNavigation *navigation = [BFAppLinkNavigation navigationWithAppLink:appLink

@@ -1,5 +1,12 @@
 # Imoji SDK Changes
 
+### Version 0.2.11
+
+* Adds the following 
+  * Sentence parsing - Just send up a full sentence and Imoji will find relevant content :D
+  * Creation and Deletion of Imojis - To be used in conjunction with the ImojiSDKUI editor, you can now upload user generated stickers!
+  * Flagging Imojis - Add the ability for users to flag Imoji content within your app. Our review team goes through flagged content to make the appropriate action.
+
 ### Version 0.2.10
 
 * Adds support for opening Imoji authentication URL's with web links for iOS 9

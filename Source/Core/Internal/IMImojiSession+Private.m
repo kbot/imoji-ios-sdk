@@ -129,6 +129,14 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
                                      headers:@{}];
 }
 
+- (BFTask *)runValidatedDeleteTaskWithPath:(NSString *)path
+                             andParameters:(NSDictionary *)parameters {
+    return [self runValidatedImojiURLRequest:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", ImojiSDKServerURL, path]]
+                                  parameters:parameters
+                                      method:@"DELETE"
+                                     headers:@{}];
+}
+
 - (NSDictionary *)getRequestHeaders:(NSDictionary *)additionalHeaders {
     NSMutableDictionary *headers = [NSMutableDictionary dictionary];
 

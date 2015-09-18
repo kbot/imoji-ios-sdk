@@ -450,7 +450,28 @@ NSString *const IMImojiSessionErrorDomain = @"IMImojiSessionErrorDomain";
 
 - (NSOperation *)removeImoji:(IMImojiObject *)imojiObject
                     callback:(IMImojiSessionAsyncResponseCallback)callback {
+
     NSOperation *cancellationToken = self.cancellationTokenOperation;
+
+    [[self runValidatedDeleteTaskWithPath:@"/imoji/remove" andParameters:@{
+            @"imojiId" : imojiObject.identifier
+    }] continueWithExecutor:[BFExecutor mainThreadExecutor] withBlock:^id(BFTask *getTask) {
+        if (cancellationToken.cancelled) {
+            return [BFTask cancelledTask];
+        }
+
+        NSDictionary *results = getTask.result;
+        NSError *error;
+        [self validateServerResponse:results error:&error];
+
+        if (error) {
+            callback(NO, error);
+        } else {
+            callback(YES, nil);
+        }
+
+        return nil;
+    }];
 
     return cancellationToken;
 }

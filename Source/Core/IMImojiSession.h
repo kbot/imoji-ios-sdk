@@ -113,7 +113,7 @@ typedef NS_ENUM(NSUInteger, IMImojiSessionCategoryClassification) {
     * (ex: emotions, locations, people, etc).
     */
     IMImojiSessionCategoryClassificationGeneric,
-    
+
     /**
      * @abstract Allows for the caller to obtain all categories.
      */
@@ -155,6 +155,13 @@ typedef void (^IMImojiSessionImojiRenderResponseCallback)(UIImage *image, NSErro
 * @param error An error with code equal to an IMImojiSessionErrorCode value or nil if the request succeeded
 */
 typedef void (^IMImojiSessionAsyncResponseCallback)(BOOL successful, NSError *error);
+
+/**
+* @abstract Callback used for creating new Imojis
+* @param imoji Reference to the newly created Imoji, nil if an error occurred
+* @param error An error with code equal to an IMImojiSessionErrorCode value or nil if the request succeeded
+*/
+typedef void (^IMImojiSessionCreationResponseCallback)(IMImojiObject *imoji, NSError *error);
 
 @interface IMImojiSession : NSObject {
     IMImojiSessionState _sessionState;
@@ -249,6 +256,19 @@ typedef void (^IMImojiSessionAsyncResponseCallback)(BOOL successful, NSError *er
 - (NSOperation *)fetchImojisByIdentifiers:(NSArray *)imojiObjectIdentifiers
                   fetchedResponseCallback:(IMImojiSessionImojiFetchedResponseCallback)fetchedResponseCallback;
 
+/**
+ * @abstract Searches the imojis database with a complete sentence. The service performs keyword parsing to find best matched imojis.
+ * @param sentence Full sentence to parse.
+ * @param numberOfResults Number of results to fetch. This can be nil.
+ * @param resultSetResponseCallback Callback triggered when the search results are available or if an error occurred.
+ * @param imojiResponseCallback Callback triggered when an imoji is available to render.
+ * @return An operation reference that can be used to cancel the request.
+ */
+- (NSOperation *)searchImojisWithSentence:(NSString *)sentence
+                          numberOfResults:(NSNumber *)numberOfResults
+                resultSetResponseCallback:(IMImojiSessionResultSetResponseCallback)resultSetResponseCallback
+                    imojiResponseCallback:(IMImojiSessionImojiFetchedResponseCallback)imojiResponseCallback;
+
 @end
 
 
@@ -290,6 +310,41 @@ typedef void (^IMImojiSessionAsyncResponseCallback)(BOOL successful, NSError *er
 */
 - (NSOperation *)addImojiToUserCollection:(IMImojiObject *)imojiObject
                                  callback:(IMImojiSessionAsyncResponseCallback)callback;
+
+@end
+
+@interface IMImojiSession (ImojiModification)
+
+/**
+ * @abstract Adds an Imoji sticker to the database
+ * @param pngImageRepresentation The PNG contents of the Imoji sticker
+ * @param tags An array of NSString tags or nil if there are none
+ * @param callback Called once the save operation is complete
+ * @return An operation reference that can be used to cancel the request.
+ */
+- (NSOperation *)createImojiWithImage:(UIImage *)pngImageRepresentation
+                                 tags:(NSArray *)tags
+                             callback:(IMImojiSessionCreationResponseCallback)callback;
+
+
+/**
+ * @abstract Removes an Imoji sticker that was created by the user with createImojiWithImage:tags:callback:
+ * @param imojiObject The added Imoji object
+ * @param callback Called once the save operation is complete
+ * @return An operation reference that can be used to cancel the request.
+ */
+- (NSOperation *)removeImoji:(IMImojiObject *)imojiObject
+                    callback:(IMImojiSessionAsyncResponseCallback)callback;
+
+/**
+ * @abstract Reports an Imoji sticker as abusive. You may expose this method in your application in order for users to have the ability to flag
+ * content as not appropriate. Reported Imojis are not removed instantly but are reviewed internally before removal.
+ * @param imojiObject The Imoji object to report
+ * @param callback Called once the save operation is complete
+ * @return An operation reference that can be used to cancel the request.
+ */
+- (NSOperation *)reportImojiAsAbusive:(IMImojiObject *)imojiObject
+                             callback:(IMImojiSessionAsyncResponseCallback)callback;
 
 @end
 

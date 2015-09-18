@@ -322,6 +322,42 @@ NSString *const IMImojiSessionErrorDomain = @"IMImojiSessionErrorDomain";
     return cancellationToken;
 }
 
+- (NSOperation *)searchImojisWithSentence:(NSString *)sentence
+                          numberOfResults:(NSNumber *)numberOfResults
+                resultSetResponseCallback:(IMImojiSessionResultSetResponseCallback)resultSetResponseCallback
+                    imojiResponseCallback:(IMImojiSessionImojiFetchedResponseCallback)imojiResponseCallback {
+    NSOperation *cancellationToken = self.cancellationTokenOperation;
+    
+    if (numberOfResults && numberOfResults.integerValue <= 0) {
+        numberOfResults = nil;
+    }
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                      @"sentence" : sentence,
+                                                                                      @"numResults" : numberOfResults != nil ? numberOfResults : [NSNull null]
+                                                                                      }];
+    
+    [[self runValidatedGetTaskWithPath:@"/imoji/search" andParameters:parameters] continueWithExecutor:[BFExecutor mainThreadExecutor] withBlock:^id(BFTask *getTask) {
+        NSDictionary *results = getTask.result;
+        
+        NSError *error;
+        [self validateServerResponse:results error:&error];
+        if (error) {
+            resultSetResponseCallback(nil, error);
+        } else {
+            [self handleImojiFetchResponse:[self convertServerDataSetToImojiArray:results]
+                                   quality:IMImojiObjectRenderSizeThumbnail
+                         cancellationToken:cancellationToken
+                    searchResponseCallback:resultSetResponseCallback
+                     imojiResponseCallback:imojiResponseCallback];
+        }
+        
+        return nil;
+    }];
+    
+    return cancellationToken;
+}
+
 - (NSOperation *)addImojiToUserCollection:(IMImojiObject *)imojiObject
                                  callback:(IMImojiSessionAsyncResponseCallback)callback {
     NSOperation *cancellationToken = self.cancellationTokenOperation;
@@ -401,6 +437,32 @@ NSString *const IMImojiSessionErrorDomain = @"IMImojiSessionErrorDomain";
 - (void)clearUserSynchronizationStatus:(IMImojiSessionAsyncResponseCallback)callback {
     [self renewCredentials:callback];
 }
+
+#pragma mark Imoji Modification
+
+- (NSOperation *)createImojiWithImage:(UIImage *)pngImageRepresentation
+                                 tags:(NSArray *)tags
+                             callback:(IMImojiSessionCreationResponseCallback)callback {
+    NSOperation *cancellationToken = self.cancellationTokenOperation;
+
+    return cancellationToken;
+}
+
+- (NSOperation *)removeImoji:(IMImojiObject *)imojiObject
+                    callback:(IMImojiSessionAsyncResponseCallback)callback {
+    NSOperation *cancellationToken = self.cancellationTokenOperation;
+
+    return cancellationToken;
+}
+
+
+- (NSOperation *)reportImojiAsAbusive:(IMImojiObject *)imojiObject
+                             callback:(IMImojiSessionAsyncResponseCallback)callback {
+    NSOperation *cancellationToken = self.cancellationTokenOperation;
+    
+    return cancellationToken;
+}
+
 
 #pragma mark Rendering
 

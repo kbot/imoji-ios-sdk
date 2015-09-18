@@ -458,6 +458,10 @@ NSString *const IMImojiSessionErrorDomain = @"IMImojiSessionErrorDomain";
         [self validateServerResponse:results error:&error];
 
         if (error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callback(nil, error);
+            });
+
             return error;
         }
 
@@ -473,19 +477,30 @@ NSString *const IMImojiSessionErrorDomain = @"IMImojiSessionErrorDomain";
                                                         fullURL:nil
                                                          format:IMPhotoImageFormatWebP];
 
-        return [self uploadImageInBackgroundWithRetries:image
+        CGSize maxDimensions = CGSizeMake(
+                [(NSNumber *) response[@"fullImageResizeWidth"] floatValue],
+                [(NSNumber *) response[@"fullImageResizeHeight"] floatValue]
+        );
+
+        return [self uploadImageInBackgroundWithRetries:[image im_resizedImageToFitInSize:maxDimensions scaleIfSmaller:NO]
                                               uploadUrl:[NSURL URLWithString:fullImageUrl]
                                              retryCount:3];
     }] continueWithBlock:^id(BFTask *task) {
         if (task.error) {
-            callback(nil, [NSError errorWithDomain:IMImojiSessionErrorDomain
-                                              code:IMImojiSessionErrorCodeServerError
-                                          userInfo:@{
-                                                  NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Unable to upload imoji image"]
-                                          }]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callback(nil, [NSError errorWithDomain:IMImojiSessionErrorDomain
+                                                  code:IMImojiSessionErrorCodeServerError
+                                              userInfo:@{
+                                                      NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Unable to upload imoji image"]
+                                              }]);
+            });
 
             return task.error;
         }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            callback(imojiObject, nil);
+        });
 
         return nil;
     }];

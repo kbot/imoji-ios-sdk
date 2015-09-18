@@ -617,7 +617,7 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
 
         request.HTTPBody = UIImagePNGRepresentation(image);
 
-        [[IMImojiSession uploadInBackgroundURLSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        [[[IMImojiSession uploadInBackgroundURLSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             if (error) {
                 if (retryCount == 0) {
                     taskCompletionSource.error = error;
@@ -627,7 +627,7 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
             } else {
                 taskCompletionSource.result = @YES;
             }
-        }];
+        }] resume];
 
         return nil;
     }];

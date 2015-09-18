@@ -327,19 +327,19 @@ NSString *const IMImojiSessionErrorDomain = @"IMImojiSessionErrorDomain";
                 resultSetResponseCallback:(IMImojiSessionResultSetResponseCallback)resultSetResponseCallback
                     imojiResponseCallback:(IMImojiSessionImojiFetchedResponseCallback)imojiResponseCallback {
     NSOperation *cancellationToken = self.cancellationTokenOperation;
-    
+
     if (numberOfResults && numberOfResults.integerValue <= 0) {
         numberOfResults = nil;
     }
-    
+
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
-                                                                                      @"sentence" : sentence,
-                                                                                      @"numResults" : numberOfResults != nil ? numberOfResults : [NSNull null]
-                                                                                      }];
-    
+            @"sentence" : sentence,
+            @"numResults" : numberOfResults != nil ? numberOfResults : [NSNull null]
+    }];
+
     [[self runValidatedGetTaskWithPath:@"/imoji/search" andParameters:parameters] continueWithExecutor:[BFExecutor mainThreadExecutor] withBlock:^id(BFTask *getTask) {
         NSDictionary *results = getTask.result;
-        
+
         NSError *error;
         [self validateServerResponse:results error:&error];
         if (error) {
@@ -351,10 +351,10 @@ NSString *const IMImojiSessionErrorDomain = @"IMImojiSessionErrorDomain";
                     searchResponseCallback:resultSetResponseCallback
                      imojiResponseCallback:imojiResponseCallback];
         }
-        
+
         return nil;
     }];
-    
+
     return cancellationToken;
 }
 
@@ -440,10 +440,55 @@ NSString *const IMImojiSessionErrorDomain = @"IMImojiSessionErrorDomain";
 
 #pragma mark Imoji Modification
 
-- (NSOperation *)createImojiWithImage:(UIImage *)pngImageRepresentation
+- (NSOperation *)createImojiWithImage:(UIImage *)image
                                  tags:(NSArray *)tags
                              callback:(IMImojiSessionCreationResponseCallback)callback {
     NSOperation *cancellationToken = self.cancellationTokenOperation;
+
+    __block IMMutableImojiObject *imojiObject;
+    [[[[self runValidatedPostTaskWithPath:@"/imoji/create" andParameters:@{
+            @"tags" : tags != nil ? tags : [NSNull null]
+    }] continueWithExecutor:[BFExecutor mainThreadExecutor] withBlock:^id(BFTask *getTask) {
+        if (cancellationToken.cancelled) {
+            return [BFTask cancelledTask];
+        }
+
+        NSDictionary *results = getTask.result;
+        NSError *error;
+        [self validateServerResponse:results error:&error];
+
+        if (error) {
+            return error;
+        }
+
+        return results;
+    }] continueWithSuccessBlock:^id(BFTask *task) {
+        NSDictionary *response = (NSDictionary *) task.result;
+        NSString *fullImageUrl = response[@"fullImageUrl"];
+        NSString *persistentIdentifier = response[@"imojiId"];
+
+        imojiObject = [IMMutableImojiObject imojiWithIdentifier:persistentIdentifier
+                                                           tags:tags
+                                                   thumbnailURL:nil
+                                                        fullURL:nil
+                                                         format:IMPhotoImageFormatWebP];
+
+        return [self uploadImageInBackgroundWithRetries:image
+                                              uploadUrl:[NSURL URLWithString:fullImageUrl]
+                                             retryCount:3];
+    }] continueWithBlock:^id(BFTask *task) {
+        if (task.error) {
+            callback(nil, [NSError errorWithDomain:IMImojiSessionErrorDomain
+                                              code:IMImojiSessionErrorCodeServerError
+                                          userInfo:@{
+                                                  NSLocalizedDescriptionKey : [NSString stringWithFormat:@"Unable to upload imoji image"]
+                                          }]);
+
+            return task.error;
+        }
+
+        return nil;
+    }];
 
     return cancellationToken;
 }

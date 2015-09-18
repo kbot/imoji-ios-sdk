@@ -19,7 +19,9 @@ extern IMPhotoImageFormat const IMImojiPreferredImageFormat;
 
 + (IMImojiSessionCredentials *)credentials;
 
-+ (NSURLSession *)ephemeralBackgroundURLSession;
++ (NSURLSession *)downloadURLSession;
+
++ (NSURLSession *)uploadInBackgroundURLSession;
 
 #pragma mark Auth
 
@@ -51,11 +53,23 @@ extern IMPhotoImageFormat const IMImojiPreferredImageFormat;
 
 - (NSArray *)convertServerDataSetToImojiArray:(NSDictionary *)serverResponse;
 
-- (void)handleImojiFetchResponse:(NSArray *)imojiObjects quality:(IMImojiObjectRenderSize)quality cancellationToken:(NSOperation *)cancellationToken searchResponseCallback:(IMImojiSessionResultSetResponseCallback)searchResponseCallback imojiResponseCallback:(IMImojiSessionImojiFetchedResponseCallback)imojiResponseCallback;
+- (void)handleImojiFetchResponse:(NSArray *)imojiObjects
+                         quality:(IMImojiObjectRenderSize)quality
+               cancellationToken:(NSOperation *)cancellationToken
+          searchResponseCallback:(IMImojiSessionResultSetResponseCallback)searchResponseCallback
+           imojiResponseCallback:(IMImojiSessionImojiFetchedResponseCallback)imojiResponseCallback;
 
-- (void)downloadImojiImageAsync:(IMMutableImojiObject *)imoji quality:(IMImojiObjectRenderSize)quality imojiIndex:(NSUInteger)imojiIndex cancellationToken:(NSOperation *)cancellationToken imojiResponseCallback:(IMImojiSessionImojiFetchedResponseCallback)imojiResponseCallback;
+- (void)downloadImojiImageAsync:(IMMutableImojiObject *)imoji
+                        quality:(IMImojiObjectRenderSize)quality
+                     imojiIndex:(NSUInteger)imojiIndex
+              cancellationToken:(NSOperation *)cancellationToken
+          imojiResponseCallback:(IMImojiSessionImojiFetchedResponseCallback)imojiResponseCallback;
 
 - (IMMutableImojiObject *)readImojiObject:(NSDictionary *)result;
+
+- (BFTask *)uploadImageInBackgroundWithRetries:(UIImage *)image
+                                     uploadUrl:(NSURL *)uploadUrl
+                                    retryCount:(int)retryCount;
 
 #pragma mark Session State Management
 

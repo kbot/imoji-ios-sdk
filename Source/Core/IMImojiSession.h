@@ -317,12 +317,12 @@ typedef void (^IMImojiSessionCreationResponseCallback)(IMImojiObject *imoji, NSE
 
 /**
  * @abstract Adds an Imoji sticker to the database
- * @param pngImageRepresentation The PNG contents of the Imoji sticker
+ * @param image The Imoji sticker image
  * @param tags An array of NSString tags or nil if there are none
  * @param callback Called once the save operation is complete
  * @return An operation reference that can be used to cancel the request.
  */
-- (NSOperation *)createImojiWithImage:(UIImage *)pngImageRepresentation
+- (NSOperation *)createImojiWithImage:(UIImage *)image
                                  tags:(NSArray *)tags
                              callback:(IMImojiSessionCreationResponseCallback)callback;
 

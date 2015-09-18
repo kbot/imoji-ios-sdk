@@ -242,7 +242,7 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
     [request setAllHTTPHeaderFields:[self getRequestHeaders:headers]];
 
     BFTaskCompletionSource *taskCompletionSource = [BFTaskCompletionSource taskCompletionSource];
-    [[[IMImojiSession ephemeralBackgroundURLSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    [[[IMImojiSession downloadURLSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
             taskCompletionSource.error = error;
         } else {
@@ -280,7 +280,7 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
 
     BFTaskCompletionSource *taskCompletionSource = [BFTaskCompletionSource taskCompletionSource];
 
-    [[[IMImojiSession ephemeralBackgroundURLSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    [[[IMImojiSession downloadURLSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
             taskCompletionSource.error = error;
         } else {
@@ -423,7 +423,7 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
     return authInfo;
 }
 
-+ (NSURLSession *)ephemeralBackgroundURLSession {
++ (NSURLSession *)downloadURLSession {
     static NSURLSession *session = nil;
     static dispatch_once_t predicate;
 
@@ -431,6 +431,22 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
         NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
         sessionConfiguration.HTTPMaximumConnectionsPerHost = 10;
         sessionConfiguration.networkServiceType = NSURLNetworkServiceTypeDefault;
+        sessionConfiguration.URLCache = nil;
+
+        session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
+    });
+
+    return session;
+}
+
++ (NSURLSession *)uploadInBackgroundURLSession {
+    static NSURLSession *session = nil;
+    static dispatch_once_t predicate;
+
+    dispatch_once(&predicate, ^{
+        NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+        sessionConfiguration.HTTPMaximumConnectionsPerHost = 3;
+        sessionConfiguration.networkServiceType = NSURLNetworkServiceTypeBackground;
         sessionConfiguration.URLCache = nil;
 
         session = [NSURLSession sessionWithConfiguration:sessionConfiguration];
@@ -576,6 +592,41 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
 
 
             return nil;
+        }];
+
+        return nil;
+    }];
+}
+
+- (BFTask *)uploadImageInBackgroundWithRetries:(UIImage *)image
+                                     uploadUrl:(NSURL *)uploadUrl
+                                    retryCount:(int)retryCount {
+    BFTaskCompletionSource *taskCompletionSource = [BFTaskCompletionSource taskCompletionSource];
+
+    [self uploadImageInBackgroundWithRetries:image uploadUrl:uploadUrl retryCount:retryCount taskCompletionSource:taskCompletionSource];
+
+    return taskCompletionSource.task;
+}
+
+- (void)uploadImageInBackgroundWithRetries:(UIImage *)image
+                                 uploadUrl:(NSURL *)uploadUrl
+                                retryCount:(int)retryCount
+                      taskCompletionSource:(BFTaskCompletionSource *)taskCompletionSource {
+    [BFTask im_concurrentBackgroundTaskWithBlock:^id(BFTask *task) {
+        NSMutableURLRequest *request = [NSMutableURLRequest PUTRequestWithURL:uploadUrl parameters:@{}];
+
+        request.HTTPBody = UIImagePNGRepresentation(image);
+
+        [[IMImojiSession uploadInBackgroundURLSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error) {
+                if (retryCount == 0) {
+                    taskCompletionSource.error = error;
+                } else {
+                    [self uploadImageInBackgroundWithRetries:image uploadUrl:uploadUrl retryCount:retryCount - 1 taskCompletionSource:taskCompletionSource];
+                }
+            } else {
+                taskCompletionSource.result = @YES;
+            }
         }];
 
         return nil;

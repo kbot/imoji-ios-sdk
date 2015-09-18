@@ -340,10 +340,12 @@ typedef void (^IMImojiSessionCreationResponseCallback)(IMImojiObject *imoji, NSE
  * @abstract Reports an Imoji sticker as abusive. You may expose this method in your application in order for users to have the ability to flag
  * content as not appropriate. Reported Imojis are not removed instantly but are reviewed internally before removal.
  * @param imojiObject The Imoji object to report
+ * @param reason Optional text describing the reason why the content is being reported
  * @param callback Called once the save operation is complete
  * @return An operation reference that can be used to cancel the request.
  */
 - (NSOperation *)reportImojiAsAbusive:(IMImojiObject *)imojiObject
+                               reason:(NSString *)reason
                              callback:(IMImojiSessionAsyncResponseCallback)callback;
 
 @end

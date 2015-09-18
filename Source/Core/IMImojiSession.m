@@ -455,11 +455,32 @@ NSString *const IMImojiSessionErrorDomain = @"IMImojiSessionErrorDomain";
     return cancellationToken;
 }
 
-
 - (NSOperation *)reportImojiAsAbusive:(IMImojiObject *)imojiObject
+                               reason:(NSString *)reason
                              callback:(IMImojiSessionAsyncResponseCallback)callback {
     NSOperation *cancellationToken = self.cancellationTokenOperation;
-    
+
+    [[self runValidatedPostTaskWithPath:@"/imoji/reportAbusive" andParameters:@{
+            @"imojiId" : imojiObject.identifier,
+            @"reason" : reason
+    }] continueWithExecutor:[BFExecutor mainThreadExecutor] withBlock:^id(BFTask *getTask) {
+        if (cancellationToken.cancelled) {
+            return [BFTask cancelledTask];
+        }
+
+        NSDictionary *results = getTask.result;
+        NSError *error;
+        [self validateServerResponse:results error:&error];
+
+        if (error) {
+            callback(NO, error);
+        } else {
+            callback(YES, nil);
+        }
+
+        return nil;
+    }];
+
     return cancellationToken;
 }
 

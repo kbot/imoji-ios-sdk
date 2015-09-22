@@ -33,7 +33,7 @@
 
 }
 
-+ (instancetype)storagePolicyWithCachePath:(NSURL *)cachePath persistentPath:(NSURL*)persistentPath {
++ (instancetype)storagePolicyWithCachePath:(NSURL *_Nonnull)cachePath persistentPath:(NSURL *_Nonnull)persistentPath {
     return [[IMMutableImojiSessionStoragePolicy alloc] initWithCachePath:cachePath
                                                           persistentPath:persistentPath];
 }

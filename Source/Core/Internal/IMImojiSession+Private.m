@@ -640,6 +640,7 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
 
         NSURL *thumbURL;
         NSURL *fullURL;
+        NSMutableDictionary *imageUrls = [NSMutableDictionary dictionary];
         if (result[@"images"]) {
             NSDictionary *imagesDictionary = result[@"images"];
             thumbURL = [NSURL URLWithString:imagesDictionary[@"webp"][@"150"][@"url"]];
@@ -650,10 +651,19 @@ NSUInteger const IMImojiSessionNumberOfRetriesForImojiDownload = 3;
             fullURL = [NSURL URLWithString:imagesDictionary[@"webp"][@"full"]];
         }
 
+        if (thumbURL) {
+            imageUrls[@(IMImojiObjectRenderSizeThumbnail)] = thumbURL;
+        }
+
+        if (fullURL) {
+            imageUrls[@(IMImojiObjectRenderSizeFullResolution)] = fullURL;
+        }
+
         return [IMMutableImojiObject imojiWithIdentifier:imojiId
                                                     tags:tags
                                             thumbnailURL:thumbURL
                                                  fullURL:fullURL
+                                                 allUrls:imageUrls
                                                   format:IMImojiPreferredImageFormat];
     } else {
         return nil;

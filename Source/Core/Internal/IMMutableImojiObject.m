@@ -31,10 +31,11 @@
 @implementation IMMutableImojiObject {
 
 }
-- (instancetype)initWWithIdentifier:(NSString *)identifier
-                               tags:(NSArray *)tags
-                       thumbnailURL:(NSURL *)thumbnailURL
-                            fullURL:(NSURL *)fullURL
+- (instancetype)initWWithIdentifier:(NSString *_Nonnull)identifier
+                               tags:(NSArray *_Nonnull)tags
+                       thumbnailURL:(NSURL *_Nullable)thumbnailURL
+                            fullURL:(NSURL *_Nullable)fullURL
+                            allUrls:(NSDictionary *_Nonnull)allUrls
                              format:(IMPhotoImageFormat)format {
     self = [super init];
     if (self) {
@@ -42,6 +43,7 @@
         _thumbnailURL = thumbnailURL;
         _imageFormat = format;
         _identifier = identifier;
+        _urls = allUrls;
         _tags = tags;
     }
 
@@ -56,16 +58,22 @@
     return _tags;
 }
 
-+ (instancetype)imojiWithIdentifier:(NSString *)identifier
-                               tags:(NSArray *)tags
-                       thumbnailURL:(NSURL *)thumbnailURL
-                            fullURL:(NSURL *)fullURL
+- (NSDictionary *)urls {
+    return _urls;
+}
+
++ (instancetype)imojiWithIdentifier:(NSString *_Nonnull)identifier
+                               tags:(NSArray *_Nonnull)tags
+                       thumbnailURL:(NSURL *_Nullable)thumbnailURL
+                            fullURL:(NSURL *_Nullable)fullURL
+                            allUrls:(NSDictionary *_Nonnull)allUrls
                              format:(IMPhotoImageFormat)format {
     return [[IMMutableImojiObject alloc] initWWithIdentifier:identifier
-                                                         tags:tags
-                                                 thumbnailURL:thumbnailURL
-                                                      fullURL:fullURL
-                                                       format:format];
+                                                        tags:tags
+                                                thumbnailURL:thumbnailURL
+                                                     fullURL:fullURL
+                                                     allUrls:allUrls
+                                                      format:format];
 }
 
 @end

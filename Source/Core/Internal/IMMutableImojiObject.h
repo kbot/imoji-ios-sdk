@@ -29,18 +29,20 @@
 
 @interface IMMutableImojiObject : IMImojiObject {
 @private
-    NSString *_identifier;
-    NSArray *_tags;
+    NSString *_Nonnull _identifier;
+    NSArray *_Nonnull _tags;
+    NSDictionary *_Nonnull _urls;
 }
 
-@property(nonatomic, strong) NSURL *thumbnailURL;
-@property(nonatomic, strong) NSURL *fullURL;
+@property(nonatomic, strong) NSURL *_Nullable thumbnailURL;
+@property(nonatomic, strong) NSURL *_Nullable fullURL;
 @property(nonatomic) IMPhotoImageFormat imageFormat;
 
-+ (instancetype)imojiWithIdentifier:(NSString *)identifier
-                               tags:(NSArray *)tags
-                       thumbnailURL:(NSURL *)thumbnailURL
-                            fullURL:(NSURL *)fullURL
-                             format:(IMPhotoImageFormat)format;
++ (instancetype _Nonnull)imojiWithIdentifier:(NSString *_Nonnull)identifier
+                                        tags:(NSArray *_Nonnull)tags
+                                thumbnailURL:(NSURL *_Nullable)thumbnailURL
+                                     fullURL:(NSURL *_Nullable)fullURL
+                                     allUrls:(NSDictionary *_Nonnull)allUrls
+                                      format:(IMPhotoImageFormat)format;
 
 @end

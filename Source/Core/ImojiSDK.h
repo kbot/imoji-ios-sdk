@@ -39,22 +39,22 @@
 /**
 * @abstract The version of the SDK
 */
-@property(readonly, nonatomic, copy) NSString *sdkVersion;
+@property(readonly, nonatomic, copy) NSString *_Nonnull sdkVersion;
 
 /**
 * @abstract The clientId set within setClientId:apiToken:
 */
-@property(readonly, nonatomic, copy) NSUUID *clientId;
+@property(readonly, nonatomic, copy) NSUUID *_Nonnull clientId;
 
 /**
 * @abstract The apiToken set within setClientId:apiToken:
 */
-@property(readonly, nonatomic, copy) NSString *apiToken;
+@property(readonly, nonatomic, copy) NSString *_Nonnull apiToken;
 
 /**
 * @abstract Singleton reference of the ImojiSDK object
 */
-+ (ImojiSDK *)sharedInstance;
++ (ImojiSDK * _Nonnull)sharedInstance;
 
 /**
 * @abstract Sets the client identifier and api token. This should be called upon loading your application, typically
@@ -62,7 +62,7 @@
 * @param clientId The Client ID provided for you application
 * @param apiToken The API token provided for you application
 */
-- (void)setClientId:(NSUUID *)clientId
-           apiToken:(NSString *)apiToken;
+- (void)setClientId:(NSUUID *_Nonnull)clientId
+           apiToken:(NSString *_Nonnull)apiToken;
 
 @end

@@ -265,60 +265,34 @@ NSString *const IMImojiSessionErrorDomain = @"IMImojiSessionErrorDomain";
         return cancellationToken;
     }
 
-    NSMutableArray *localImojis = [NSMutableArray new];
-    NSMutableArray *remoteImojis = [NSMutableArray new];
-    for (NSString *objectIdentifier in imojiObjectIdentifiers) {
-        IMMutableImojiObject *imojiObject = [IMMutableImojiObject imojiWithIdentifier:objectIdentifier
-                                                                                 tags:@[] // todo: persist tags
-                                                                         thumbnailURL:nil
-                                                                              fullURL:nil
-                                                                               format:IMImojiPreferredImageFormat];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
+            @"ids" : [imojiObjectIdentifiers componentsJoinedByString:@","]
+    }];
 
-        IMMutableImojiSessionStoragePolicy *policy = (IMMutableImojiSessionStoragePolicy *) self.storagePolicy;
-        if ([policy imojiExists:imojiObject quality:IMImojiObjectRenderSizeThumbnail format:IMImojiPreferredImageFormat] &&
-                [policy imojiExists:imojiObject quality:IMImojiObjectRenderSizeFullResolution format:IMImojiPreferredImageFormat]) {
-            [localImojis addObject:imojiObject];
+    [[self runValidatedPostTaskWithPath:@"/imoji/fetchMultiple" andParameters:parameters] continueWithExecutor:[BFExecutor mainThreadExecutor] withBlock:^id(BFTask *getTask) {
+        if (cancellationToken.cancelled) {
+            return [BFTask cancelledTask];
+        }
+
+        NSDictionary *results = getTask.result;
+        NSError *error;
+        [self validateServerResponse:results error:&error];
+
+        if (error) {
+            fetchedResponseCallback(nil, NSUIntegerMax, error);
         } else {
-            [remoteImojis addObject:objectIdentifier];
+            NSMutableArray *imojiObjects = [NSMutableArray arrayWithArray:[self convertServerDataSetToImojiArray:results]];
+
+            [self handleImojiFetchResponse:imojiObjects
+                                   quality:IMImojiObjectRenderSizeThumbnail
+                         cancellationToken:cancellationToken
+                    searchResponseCallback:nil
+                     imojiResponseCallback:fetchedResponseCallback];
         }
-    }
 
-    if (remoteImojis.im_isEmpty) {
-        NSUInteger index = 0;
-        for (IMImojiObject *imoji in localImojis) {
-            fetchedResponseCallback(imoji, index, nil);
-            ++index;
-        }
-    } else {
-        NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:@{
-                @"ids" : [remoteImojis componentsJoinedByString:@","]
-        }];
+        return nil;
+    }];
 
-        [[self runValidatedPostTaskWithPath:@"/imoji/fetchMultiple" andParameters:parameters] continueWithExecutor:[BFExecutor mainThreadExecutor] withBlock:^id(BFTask *getTask) {
-            if (cancellationToken.cancelled) {
-                return [BFTask cancelledTask];
-            }
-
-            NSDictionary *results = getTask.result;
-            NSError *error;
-            [self validateServerResponse:results error:&error];
-
-            if (error) {
-                fetchedResponseCallback(nil, NSUIntegerMax, error);
-            } else {
-                NSMutableArray *imojiObjects = [NSMutableArray arrayWithArray:[self convertServerDataSetToImojiArray:results]];
-                [imojiObjects addObjectsFromArray:localImojis];
-
-                [self handleImojiFetchResponse:imojiObjects
-                                       quality:IMImojiObjectRenderSizeThumbnail
-                             cancellationToken:cancellationToken
-                        searchResponseCallback:nil
-                         imojiResponseCallback:fetchedResponseCallback];
-            }
-
-            return nil;
-        }];
-    }
     return cancellationToken;
 }
 
@@ -475,6 +449,7 @@ NSString *const IMImojiSessionErrorDomain = @"IMImojiSessionErrorDomain";
                                                            tags:tags
                                                    thumbnailURL:nil
                                                         fullURL:nil
+                                                        allUrls:@{}
                                                          format:IMPhotoImageFormatWebP];
 
         CGSize maxDimensions = CGSizeMake(

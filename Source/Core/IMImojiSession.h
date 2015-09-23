@@ -253,7 +253,7 @@ typedef void (^IMImojiSessionCreationResponseCallback)(IMImojiObject *__nullable
 * @param fetchedResponseCallback Callback triggered when an imoji is available to render
 * @return An operation reference that can be used to cancel the request.
 */
-- (NSOperation *__nonnull)fetchImojisByIdentifiers:(NSArray<NSString *> *__nonnull)imojiObjectIdentifiers
+- (NSOperation *__nonnull)fetchImojisByIdentifiers:(NSArray *__nonnull)imojiObjectIdentifiers
                            fetchedResponseCallback:(IMImojiSessionImojiFetchedResponseCallback __nonnull)fetchedResponseCallback;
 
 /**
@@ -323,7 +323,7 @@ typedef void (^IMImojiSessionCreationResponseCallback)(IMImojiObject *__nullable
  * @return An operation reference that can be used to cancel the request.
  */
 - (NSOperation *__nonnull)createImojiWithImage:(UIImage *__nonnull)image
-                                          tags:(NSArray<NSString *> *__nullable)tags
+                                          tags:(NSArray *__nullable)tags
                                       callback:(IMImojiSessionCreationResponseCallback __nonnull)callback;
 
 

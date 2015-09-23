@@ -31,11 +31,11 @@
 @implementation IMMutableImojiObject {
 
 }
-- (instancetype)initWWithIdentifier:(NSString *_Nonnull)identifier
-                               tags:(NSArray *_Nonnull)tags
-                       thumbnailURL:(NSURL *_Nullable)thumbnailURL
-                            fullURL:(NSURL *_Nullable)fullURL
-                            allUrls:(NSDictionary *_Nonnull)allUrls
+- (instancetype)initWWithIdentifier:(NSString *__nonnull)identifier
+                               tags:(NSArray *__nonnull)tags
+                       thumbnailURL:(NSURL *__nullable)thumbnailURL
+                            fullURL:(NSURL *__nullable)fullURL
+                            allUrls:(NSDictionary *__nonnull)allUrls
                              format:(IMPhotoImageFormat)format {
     self = [super init];
     if (self) {
@@ -62,11 +62,11 @@
     return _urls;
 }
 
-+ (instancetype)imojiWithIdentifier:(NSString *_Nonnull)identifier
-                               tags:(NSArray *_Nonnull)tags
-                       thumbnailURL:(NSURL *_Nullable)thumbnailURL
-                            fullURL:(NSURL *_Nullable)fullURL
-                            allUrls:(NSDictionary *_Nonnull)allUrls
++ (instancetype)imojiWithIdentifier:(NSString *__nonnull)identifier
+                               tags:(NSArray *__nonnull)tags
+                       thumbnailURL:(NSURL *__nullable)thumbnailURL
+                            fullURL:(NSURL *__nullable)fullURL
+                            allUrls:(NSDictionary *__nonnull)allUrls
                              format:(IMPhotoImageFormat)format {
     return [[IMMutableImojiObject alloc] initWWithIdentifier:identifier
                                                         tags:tags

@@ -171,18 +171,18 @@ typedef void (^IMImojiSessionCreationResponseCallback)(IMImojiObject *__nullable
 * @abstract Creates a imoji session object.
 * @param storagePolicy The storage policy to use for persisting imojis.
 */
-- (instancetype __nonnull)initWithStoragePolicy:(IMImojiSessionStoragePolicy *__nonnull)storagePolicy;
+- (nonnull instancetype)initWithStoragePolicy:(IMImojiSessionStoragePolicy *__nonnull)storagePolicy;
 
 /**
 * @abstract Creates a imoji session object with a default temporary file system storage policy.
 */
-+ (instancetype __nonnull)imojiSession;
++ (nonnull instancetype)imojiSession;
 
 /**
 * @abstract Creates a imoji session object.
 * @param storagePolicy The storage policy to use for persisting imojis.
 */
-+ (instancetype __nonnull)imojiSessionWithStoragePolicy:(IMImojiSessionStoragePolicy *__nonnull)storagePolicy;
++ (nonnull instancetype)imojiSessionWithStoragePolicy:(IMImojiSessionStoragePolicy *__nonnull)storagePolicy;
 
 /**
 * @abstract The current state of the session

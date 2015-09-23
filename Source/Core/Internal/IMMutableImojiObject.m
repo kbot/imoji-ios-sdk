@@ -62,12 +62,12 @@
     return _urls;
 }
 
-+ (instancetype)imojiWithIdentifier:(NSString *__nonnull)identifier
-                               tags:(NSArray *__nonnull)tags
-                       thumbnailURL:(NSURL *__nullable)thumbnailURL
-                            fullURL:(NSURL *__nullable)fullURL
-                            allUrls:(NSDictionary *__nonnull)allUrls
-                             format:(IMPhotoImageFormat)format {
++ (nonnull instancetype)imojiWithIdentifier:(NSString *__nonnull)identifier
+                                       tags:(NSArray *__nonnull)tags
+                               thumbnailURL:(NSURL *__nullable)thumbnailURL
+                                    fullURL:(NSURL *__nullable)fullURL
+                                    allUrls:(NSDictionary *__nonnull)allUrls
+                                     format:(IMPhotoImageFormat)format {
     return [[IMMutableImojiObject alloc] initWWithIdentifier:identifier
                                                         tags:tags
                                                 thumbnailURL:thumbnailURL

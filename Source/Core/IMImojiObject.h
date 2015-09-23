@@ -40,14 +40,14 @@
 /**
 * @abstract One or more tags as NSString's. This field is never nil.
 */
-@property(nonatomic, strong, readonly, nonnull) NSArray<NSString *> *tags;
+@property(nonatomic, strong, readonly, nonnull) NSArray *tags;
 
 /**
  * @abstract A dictionary representation of all the URL's of the Imoji images. The keys are set to NSNumber
  * representations of IMImojiObjectRenderSizes. To fetch a thumbnail URL for example, you would call
  * urls[@(IMImojiObjectRenderSizeThumbnail)];
  */
-@property(nonatomic, strong, readonly, nonnull) NSDictionary<NSNumber *, NSURL *> *urls;
+@property(nonatomic, strong, readonly, nonnull) NSDictionary *urls;
 
 
 @end

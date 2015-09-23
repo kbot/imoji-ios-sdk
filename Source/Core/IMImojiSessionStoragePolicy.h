@@ -35,7 +35,7 @@
 *  temporary directory are removed after one day of non-usage. Additionally, the operating system can remove the
 *  contents at varying times.
 */
-+ (instancetype __nonnull)temporaryDiskStoragePolicy;
++ (nonnull instancetype)temporaryDiskStoragePolicy;
 
 /**
 *  @abstract Generates a storage policy that writes assets to a specified cache path and persistent information to
@@ -43,6 +43,6 @@
 *  @param cachePath URL path to store temporary files such as such as imoji images
 *  @param persistentPath URL path to store persistent information such as authentication information
 */
-+ (instancetype __nonnull)storagePolicyWithCachePath:(NSURL * __nonnull)cachePath persistentPath:(NSURL * __nonnull)persistentPath;
++ (nonnull instancetype)storagePolicyWithCachePath:(NSURL * __nonnull)cachePath persistentPath:(NSURL * __nonnull)persistentPath;
 
 @end

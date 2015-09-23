@@ -39,6 +39,6 @@ NSString *const ImojiSDKMainAppStoreId = @"884963181";
 NSString *const ImojiSDKMainAppStoreName = @"imojiapp";
 NSString *const ImojiSDKVersion = @"0.1.0";
 
-NSString *const ImojiSDKServerURL = @"http://jumaji.com:8081/v2";
+NSString *const ImojiSDKServerURL = @"https://api.imoji.io/v2";
 
 @end

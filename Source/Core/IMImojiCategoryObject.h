@@ -38,17 +38,17 @@ extern NSUInteger const IMImojiObjectPriorityDefault;
 /**
 * @abstract A unique id for the category. This field is never nil.
 */
-@property(nonatomic, strong, readonly) NSString *_Nonnull identifier;
+@property(nonatomic, strong, readonly, nonnull) NSString *identifier;
 
 /**
 * @abstract Description of the category. This field is never nil.
 */
-@property(nonatomic, strong, readonly) NSString *_Nonnull title;
+@property(nonatomic, strong, readonly, nonnull) NSString * title;
 
 /**
 * @abstract An imoji object representing the category. This field is never nil.
 */
-@property(nonatomic, strong, readonly) IMImojiObject *_Nonnull previewImoji;
+@property(nonatomic, strong, readonly, nonnull) IMImojiObject *previewImoji;
 
 /**
 * @abstract The order of importance to display the category starting from 0

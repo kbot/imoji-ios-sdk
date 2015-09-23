@@ -35,19 +35,19 @@
 /**
 * @abstract A unique identifier for the imoji. This field is never nil.
 */
-@property(nonatomic, strong, readonly) NSString *_Nonnull identifier;
+@property(nonatomic, strong, readonly, nonnull) NSString *identifier;
 
 /**
 * @abstract One or more tags as NSString's. This field is never nil.
 */
-@property(nonatomic, strong, readonly) NSArray *_Nonnull tags;
+@property(nonatomic, strong, readonly, nonnull) NSArray<NSString *> *tags;
 
 /**
  * @abstract A dictionary representation of all the URL's of the Imoji images. The keys are set to NSNumber
  * representations of IMImojiObjectRenderSizes. To fetch a thumbnail URL for example, you would call
  * urls[@(IMImojiObjectRenderSizeThumbnail)];
  */
-@property(nonatomic, strong, readonly) NSDictionary *_Nonnull urls;
+@property(nonatomic, strong, readonly, nonnull) NSDictionary<NSNumber *, NSURL *> *urls;
 
 
 @end

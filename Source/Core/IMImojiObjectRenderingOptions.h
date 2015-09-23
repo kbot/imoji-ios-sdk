@@ -36,13 +36,13 @@ typedef NS_ENUM(NSUInteger, IMImojiObjectRenderSize) {
     * the consumer wishes to load and display multiple imojis as fast as possible. Sizes of the thumbnail imojis vary
     * but do not exceed 150x150 pixels
     */
-    IMImojiObjectRenderSizeThumbnail,
+            IMImojiObjectRenderSizeThumbnail,
 
     /**
     * @abstract When used, a high resolution image of the Imoji is downloaded and rendered. This setting is useful when
     * the consumer wishes to export the imoji to another application or to simply display a large version of it.
     */
-    IMImojiObjectRenderSizeFullResolution
+            IMImojiObjectRenderSizeFullResolution
 };
 
 /**
@@ -61,7 +61,7 @@ typedef NS_ENUM(NSUInteger, IMImojiObjectRenderSize) {
 * The content of the NSValue object is a CGSize struct
 * @see [NSValue valueWithCGSize:](https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSValue_Class/index.html#//apple_ref/occ/clm/NSValue/valueWithCGSize:)
 */
-@property(nonatomic, strong) NSValue *_Nullable targetSize;
+@property(nonatomic, strong, nullable) NSValue *targetSize;
 
 /**
 * @abstract The maximum bounding size to render the IMImojiObject to. When setting options such as aspectRatio,
@@ -69,7 +69,7 @@ typedef NS_ENUM(NSUInteger, IMImojiObjectRenderSize) {
 * The content of the NSValue object is a CGSize struct
 * @see [NSValue valueWithCGSize:](https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSValue_Class/index.html#//apple_ref/occ/clm/NSValue/valueWithCGSize:)
 */
-@property(nonatomic, strong) NSValue *_Nullable maximumRenderSize;
+@property(nonatomic, strong, nullable) NSValue *maximumRenderSize;
 
 /**
 * @abstract An optional aspect ratio to fit the image into when rendering. The height or width is padded appropriately to
@@ -77,8 +77,8 @@ typedef NS_ENUM(NSUInteger, IMImojiObjectRenderSize) {
 * The content of the NSValue object is a CGSize struct
 * @see [NSValue valueWithCGSize:](https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSValue_Class/index.html#//apple_ref/occ/clm/NSValue/valueWithCGSize:)
 */
-@property(nonatomic, strong) NSValue *_Nullable aspectRatio;
+@property(nonatomic, strong, nullable) NSValue *aspectRatio;
 
-+ (instancetype _Nonnull)optionsWithRenderSize:(IMImojiObjectRenderSize)renderSize;
++ (nonnull instancetype)optionsWithRenderSize:(IMImojiObjectRenderSize)renderSize;
 
 @end

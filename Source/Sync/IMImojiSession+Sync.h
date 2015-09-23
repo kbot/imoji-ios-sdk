@@ -46,7 +46,7 @@
 * @param sourceApplication If an error occurred while trying to load the Imoji iOS application
 * @see [UIApplicationDelegate application:openURL:sourceApplication:annotation:](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplicationDelegate_Protocol/index.html#//apple_ref/occ/intfm/UIApplicationDelegate/application:openURL:sourceApplication:annotation:)
 */
-- (BOOL)isImojiAppRequest:(NSURL *_Nonnull)url sourceApplication:(NSString *_Nonnull)sourceApplication;
+- (BOOL)isImojiAppRequest:(NSURL * __nonnull)url sourceApplication:(NSString * __nonnull)sourceApplication;
 
 /**
 * @abstract Handles the URL passed to application:openURL:sourceApplication:annotation for authentication
@@ -54,12 +54,12 @@
 * @param sourceApplication sourceApplication from UIApplicationDelegate application:openURL:sourceApplication:annotation
 * @see [UIApplicationDelegate application:openURL:sourceApplication:annotation:](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplicationDelegate_Protocol/index.html#//apple_ref/occ/intfm/UIApplicationDelegate/application:openURL:sourceApplication:annotation:)
 */
-- (BOOL)handleImojiAppRequest:(NSURL *_Nonnull)url sourceApplication:(NSString *_Nonnull)sourceApplication;
+- (BOOL)handleImojiAppRequest:(NSURL * __nonnull)url sourceApplication:(NSString * __nonnull)sourceApplication;
 
 /**
 * @abstract Removes the synchronization state from the session. Upon calling this method
 * @param callback Status callback triggered when the routine is finished. This can be nil.
 */
-- (void)clearUserSynchronizationStatus:(IMImojiSessionAsyncResponseCallback _Nonnull)callback;
+- (void)clearUserSynchronizationStatus:(IMImojiSessionAsyncResponseCallback __nonnull)callback;
 
 @end

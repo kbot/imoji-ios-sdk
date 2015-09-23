@@ -35,7 +35,7 @@
 * @param parent Parent view controller
 * @return The presented StoreKit view controller
 */
-+ (UIViewController *_Nonnull)presentApplicationDownloadViewController:(UIViewController *_Nonnull)parent;
++ (UIViewController * __nonnull)presentApplicationDownloadViewController:(UIViewController * __nonnull)parent;
 
 /**
 * @abstract Launches the App Store application landing on the download page for Imoji

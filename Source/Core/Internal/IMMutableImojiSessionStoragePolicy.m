@@ -74,20 +74,21 @@ NSUInteger const IMMutableImojiSessionStoragePolicyDefaultExpirationTimeInSecond
                 format:(IMPhotoImageFormat)format
          imageContents:(NSData *)imageContents
            synchronous:(BOOL)synchronous {
-    return [BFTask taskFromExecutor:synchronous ? [BFExecutor mainThreadExecutor] : [BFTask im_concurrentBackgroundExecutor]
-                          withBlock:^id(BFTask *task) {
-                              NSString *fullImojiPath = [NSString stringWithFormat:@"%@/%@-%@.%@", self.cachePath.path, @(quality), imoji.identifier, @(format)];
-                              NSError *error;
-
-                              [imageContents writeToFile:fullImojiPath options:NSDataWritingAtomic error:&error];
-
-                              NSURL *pathUrl = [NSURL fileURLWithPath:fullImojiPath];
-                              [pathUrl setResourceValue:@YES
-                                                 forKey:NSURLIsExcludedFromBackupKey
-                                                  error:&error];
-
-                              return nil;
-                          }];
+    
+    return [[BFTask taskWithDelay:0] continueWithExecutor:synchronous ? [BFExecutor mainThreadExecutor] : [BFTask im_concurrentBackgroundExecutor]
+                                                withBlock:^id(BFTask *task) {
+                                                    NSString *fullImojiPath = [NSString stringWithFormat:@"%@/%@-%@.%@", self.cachePath.path, @(quality), imoji.identifier, @(format)];
+                                                    NSError *error;
+                                                    
+                                                    [imageContents writeToFile:fullImojiPath options:NSDataWritingAtomic error:&error];
+                                                    
+                                                    NSURL *pathUrl = [NSURL fileURLWithPath:fullImojiPath];
+                                                    [pathUrl setResourceValue:@YES
+                                                                       forKey:NSURLIsExcludedFromBackupKey
+                                                                        error:&error];
+                                                    
+                                                    return nil;
+                                                }];
 }
 
 - (NSData *)readImojiImage:(IMImojiObject *)imoji

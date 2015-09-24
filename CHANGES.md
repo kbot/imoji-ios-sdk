@@ -1,5 +1,11 @@
 # Imoji SDK Changes
 
+### Version 0.2.12
+
+* Adds the following 
+  * Adds nonnull nullable annotations to all headers
+  * Addresses an error while using BFTask taskFromExecutor from Bolts 1.3
+  
 ### Version 0.2.11
 
 * Adds the following 

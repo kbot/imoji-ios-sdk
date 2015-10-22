@@ -22,7 +22,6 @@ Pod::Spec.new do |s|
 
   s.subspec 'Core' do |ss|
     ss.dependency "Bolts/Tasks", '~> 1.2'
-    ss.dependency "libwebp", "~> 0.4.3"
 
     ss.ios.source_files = 'Source/Core/**/*.{h,m}'
     ss.ios.public_header_files = 'Source/Core/*.h'
